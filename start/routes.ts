@@ -23,3 +23,14 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async () => {
   return { hello: 'world' }
 })
+
+
+
+import "./routes/bills"
+import "./routes/points"
+import "./routes/ratings"
+import "./routes/customers"
+import "./routes/drivers"
+import "./routes/trips"
+
+

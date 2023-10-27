@@ -6,8 +6,11 @@ export default class Customer extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column({ isPrimary: true })
+  @column()
   public contactEmergency: number
+
+  @column()
+  public user_id: string
   
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
