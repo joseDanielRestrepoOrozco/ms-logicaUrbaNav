@@ -1,15 +1,32 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Driver from 'App/Models/Driver'
+//import Env from '@ioc:Adonis/Core/Env'
 
 export default class DriversController {
-        //Create
+        /**
+        * Almacena la informacion de un conductor
+        * @param {HttpContextContract} request - peticion del usuario
+        * @returns {Driver} - el conductor con su id
+        */
         public async store({ request }: HttpContextContract) {
             let body = request.body()
+            // Resolviendo Union de Mongo NO TOCAR   ENSERIO!!!! 
+            //let user = body.user_id
+            //const result = await axios.get(`${Env.get('MS-SECURITY')}/api/user/{user}`,
+            //{
+            //    headers: {
+             //     Authorization: `Bearer ${token}`
+            //    }
+             // })
             const theDriver = await Driver.create(body)
             return theDriver
         }
     
-        //Get
+        /**
+        * Lista todas los conductores con paginadores
+        * @param {HttpContextContract} request - peticion del conductor
+        * @returns {Customer[]} - listado de los conductores con paginadores  
+        */
         public async index({ request }: HttpContextContract) {
             const page = request.input('page', 1)
             const perPage = request.input('per_page', 20)
@@ -26,11 +43,21 @@ export default class DriversController {
         //     return theDriver
         // }
 
+        /**
+        * Muestra un conductor dado el id por la url
+        * @param {HttpContextContract} params - peticion del usuario
+        * @returns {Driver} - un conductor
+        */
         public async show({ params }: HttpContextContract) {
             return Driver.findOrFail(params.id)
         }
     
-        //Update 
+        /**
+        * Actualiza un conductor
+        * @param {HttpContextContract} params - parametros dados por Url
+        * @param {HttpContextContract} request - peticion del usuario
+        * @returns {Driver} - lo que devuelve la solicitud de guardado
+        */
         public async update({ params, request }: HttpContextContract) {
             const body = request.body()
             const theDriver: Driver = await Driver.findOrFail(params.id)
@@ -38,7 +65,12 @@ export default class DriversController {
             return theDriver.save()
         }
     
-        //Delete
+        /**
+        * elimina un conductor
+        * @param {HttpContextContract} params - parametros dados por Url
+        * @param {HttpContextContract} response - respuesta para el usuario
+        * @returns {Driver} - lo que devuelve la solicitud de eliminacion
+        */
         public async destroy({ params, response }: HttpContextContract) {
             const theDriver: Driver = await Driver.findOrFail(params.id)
             response.status(204)
