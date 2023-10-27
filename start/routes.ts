@@ -25,24 +25,10 @@ Route.get('/', async () => {
 })
 
 
-Route.post("/bill","BillsController.store");
-Route.get("/bill","BillsController.index");
-Route.get("/bill/:id","BillsController.show");
-Route.put("/bill/:id","BillsController.update");
-Route.delete("/bill/:id","BillsController.destroy");
+
+import "./routes/bills"
+import "./routes/points"
+import "./routes/ratings"
 
 
 
-Route.post("/point","PointsController.store");
-Route.get("/point","PointsController.index");
-Route.get("/point/:id","PointsController.show");
-Route.put("/point/:id","PointsController.update");
-Route.delete("/point/:id","PointsController.destroy");
-
-
-
-Route.post("/rating","RatingsController.store");
-Route.get("/rating","RatingsController.index");
-Route.get("/rating/:id","RatingsController.show");
-Route.put("/rating/:id","RatingsController.update");
-Route.delete("/rating/:id","RatingsController.destroy");
