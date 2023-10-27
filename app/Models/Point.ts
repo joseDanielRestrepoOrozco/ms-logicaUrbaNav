@@ -5,6 +5,18 @@ export default class Point extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column()
+  public name:String
+
+  @column()
+  public latitude:number
+
+  @column()
+  public longitude:number
+
+  @column()
+  public route_id:number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

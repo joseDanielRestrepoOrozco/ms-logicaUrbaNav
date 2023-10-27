@@ -5,6 +5,15 @@ export default class Bill extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column()
+  public price: number
+
+  @column()
+  public date: Date
+
+  @column()
+  public trip_id: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
