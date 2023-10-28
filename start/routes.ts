@@ -32,5 +32,6 @@ import "./routes/ratings"
 import "./routes/customers"
 import "./routes/drivers"
 import "./routes/trips"
+import "./routes/vehicles"
 
 
