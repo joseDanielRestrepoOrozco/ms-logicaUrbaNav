@@ -3,9 +3,9 @@ import Trip from 'App/Models/Trip'
 
 export default class TripsController {
     /**
-     * Creacion de un viaje
-     * @param {HttpContextContract} request - solicitud
-     * @returns el viaje creado
+     * Almacena la informacion de un viaje
+     * @param {HttpContextContract} request - peticion del usuario
+     * @returns {Trip} - el viaje con su id
      */
     public async store({ request }: HttpContextContract) {
         let body = request.body()
@@ -14,9 +14,9 @@ export default class TripsController {
     }
 
     /**
-     * busqueda de todos los viaje en la base de datos
-     * @param {HttpContextContract} request - solicitud
-     * @returns los viajes con paginacion
+     * Lista todas los viajes con paginadores
+     * @param {HttpContextContract} request - peticion del usuario
+     * @returns {Trip[]} - listado de los viajes con paginadores  
      */
     public async index({ request }: HttpContextContract) {
         const page = request.input('page', 1)
@@ -24,12 +24,11 @@ export default class TripsController {
         let trips: Trip[] = await Trip.query().paginate(page, perPage)
         return trips
     }
-
     /**
-     * mostrar un viaje dando un id como parametro
-     * @param {HttpContextContract} params - parametros dados por URL
-     * @returns el viaje si lo encontro
-     */
+    * Muestra un viaje dado el id por la url
+    * @param {HttpContextContract} params - peticion del usuario
+    * @returns {Trip} - un viaje
+    */
     public async show({ params }: HttpContextContract) {
         return Trip.findOrFail(params.id)
     }
