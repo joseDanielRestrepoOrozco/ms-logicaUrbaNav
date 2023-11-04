@@ -12,8 +12,8 @@ export default class extends BaseSchema {
       table.date('year').notNullable()
       table.string('color', 20).notNullable()
       table.string('plate', 20).notNullable()
-      table.integer('passengerCapacity').notNullable()
-      table.string('propertyCard', 40).notNullable()
+      table.integer('passenger_capacity').notNullable()
+      table.string('property_card', 40).notNullable()
       table.string('soat', 40).notNullable()
      
 
