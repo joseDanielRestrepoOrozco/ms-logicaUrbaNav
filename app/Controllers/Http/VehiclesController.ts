@@ -7,8 +7,8 @@ export default class VehiclesController {
      //crear
      public async store({request}: HttpContextContract){
         let body=request.body();
-        const theScreening=await Vehicle.create(body);
-        return theScreening;
+        const theVehicle=await Vehicle.create(body);
+        return theVehicle;
 
     }
 
