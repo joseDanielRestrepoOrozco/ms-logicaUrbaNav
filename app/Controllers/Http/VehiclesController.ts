@@ -34,8 +34,8 @@ export default class VehiclesController {
         theVehicle.year = body.year;
         theVehicle.color = body.color;
         theVehicle.plate = body.plate;
-        theVehicle.passengerCapacity = body.passengerCapacity;
-        theVehicle.propertyCard = body.propertyCard;
+        theVehicle.passenger_capacity = body.passenger_capacity;
+        theVehicle.property_card = body.property_card;
         theVehicle.soat = body.soat;
         return theVehicle.save();
     }
