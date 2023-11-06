@@ -1,8 +1,7 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'customers'
-
+  protected tableName = 'drivers'
 
   /**
    * Metodo encargado de crear la tabla en MySQL
@@ -10,15 +9,18 @@ export default class extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('contact_emergency', 60)
+      table.boolean('is_available')
       table.string('user_id')
       /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
+       * columnas para las foreing key de vehiculos y puntos
        */
-      table.timestamp('created_at', { useTz: true })
-      table.timestamp('updated_at', { useTz: true })
+      
+      table.integer('point_id').unsigned().references('points.id').onDelete('CASCADE')
+      table.timestamp('created_at').defaultTo(this.raw('CURRENT_TIMESTAMP'))
+      table.timestamp('updated_at').defaultTo(this.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))  
     })
   }
+
 
   /**
    *  Metodo para deshacer los cambios realizados en la base de datos 

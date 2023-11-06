@@ -23,3 +23,14 @@ export default class Rating extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 }
+
+/*
+customers
+points
+routes
+drivers
+vehicles
+trips
+bills
+ratings
+*/

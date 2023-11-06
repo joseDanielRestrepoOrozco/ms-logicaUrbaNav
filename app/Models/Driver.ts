@@ -15,8 +15,8 @@ export default class Driver extends BaseModel {
   /**
    * columnas de foreing key de vehiculo y puntos
    */
-  //@column()
-  //public vehicle_id: number
+  @column()
+  public vehicle_id: number
 
   @column()
   public point_id: number
@@ -31,7 +31,7 @@ export default class Driver extends BaseModel {
     pivotTable: 'trips',
     pivotForeignKey: 'driver_id',
     pivotRelatedForeignKey: 'customer_id',
-    pivotColumns: ['date']
+    pivotColumns: ['date','price','status','route']
   })
   public customers: ManyToMany<typeof Customer>
 }

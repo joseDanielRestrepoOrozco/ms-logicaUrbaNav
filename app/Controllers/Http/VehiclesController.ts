@@ -4,7 +4,11 @@ import Vehicle from 'App/Models/Vehicle';
 export default class VehiclesController {
 
     
-     //crear
+     /**
+     * Almacena la informacion de un vehiculo
+     * @param {HttpContextContract} request - peticion del usuario
+     * @returns {Vehicle} - el vehiculo con su id
+     */
      public async store({request}: HttpContextContract){
         let body=request.body();
         const theScreening=await Vehicle.create(body);
@@ -12,7 +16,12 @@ export default class VehiclesController {
 
     }
 
-    //listar 
+    
+    /**
+     * Lista todas los vehiculos con paginadores
+     * @param {HttpContextContract} request - peticion del usuario
+     * @returns {Vehicle[]} - listado de los vehiculos con paginadores  
+     */
     public async index({ request }: HttpContextContract) {
         const page = request.input('page', 1);
         const perPage = request.input("per_page", 20);
@@ -20,12 +29,21 @@ export default class VehiclesController {
         return theVehicles;
     }
 
-    //ver una sola 
+    /**
+    * Muestra un vehiculo dado el id por la url
+    * @param {HttpContextContract} params - peticion del usuario
+    * @returns {Vehicle} - un vehiculo
+    */
     public async show({ params }: HttpContextContract) {
         return Vehicle.findOrFail(params.id);
     }
 
-    //Update
+    /**
+     * Actualiza los datos del vehiculo
+     * @param {HttpContextContract} request - solicitud con el body con informacion de los cambios
+     * @param {HttpContextContract} params - parametros dados por URL
+     * @returns hace efectivo el cambio en la base de datos
+     */
     public async update({ params, request }: HttpContextContract) {
         const body = request.body();
         const theVehicle: Vehicle = await Vehicle.findOrFail(params.id);
@@ -40,7 +58,12 @@ export default class VehiclesController {
         return theVehicle.save();
     }
 
-    //Delete
+    /**
+     * busca y elimina un viaje dando el id como parametro
+     * @param {HttpContextContract} response - respuesta por parte del servidor
+     * @param {HttpContextContract} params - parametros dados por URL
+     * @returns hace efectiva la eliminacion en la base de datos
+     */
     public async destroy({ params, response }: HttpContextContract) {
         const theVehicle: Vehicle = await Vehicle.findOrFail(params.id);
         response.status(204);

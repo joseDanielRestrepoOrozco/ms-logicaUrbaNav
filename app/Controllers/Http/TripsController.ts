@@ -21,16 +21,17 @@ export default class TripsController {
     public async index({ request }: HttpContextContract) {
         const page = request.input('page', 1)
         const perPage = request.input('per_page', 20)
-        let trips: Trip[] = await Trip.query().paginate(page, perPage)
+        let trips: Trip[] = await Trip.query().preload("bill").paginate(page, perPage)
         return trips
     }
+    s
     /**
     * Muestra un viaje dado el id por la url
     * @param {HttpContextContract} params - peticion del usuario
     * @returns {Trip} - un viaje
     */
     public async show({ params }: HttpContextContract) {
-        return Trip.findOrFail(params.id)
+        return Trip.query().where("id",params.id).preload("bill")
     }
 
     /**
