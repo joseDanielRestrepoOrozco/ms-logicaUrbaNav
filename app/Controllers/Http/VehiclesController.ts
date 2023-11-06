@@ -3,25 +3,19 @@ import Vehicle from 'App/Models/Vehicle';
 
 export default class VehiclesController {
 
-    
-     /**
-     * Almacena la informacion de un vehiculo
-     * @param {HttpContextContract} request - peticion del usuario
-     * @returns {Vehicle} - el vehiculo con su id
-     */
-     public async store({request}: HttpContextContract){
+    /**
+    * Almacena la informacion de un vehiculo
+    * @param {HttpContextContract} request - peticion del usuario
+    * @returns {Bill} - el vehiculo con su id
+    */
+    public async store({request}: HttpContextContract){
         let body=request.body();
-        const theScreening=await Vehicle.create(body);
-        return theScreening;
+        const theVehicle=await Vehicle.create(body);
+        return theVehicle;
 
     }
 
-    
-    /**
-     * Lista todas los vehiculos con paginadores
-     * @param {HttpContextContract} request - peticion del usuario
-     * @returns {Vehicle[]} - listado de los vehiculos con paginadores  
-     */
+    //listar 
     public async index({ request }: HttpContextContract) {
         const page = request.input('page', 1);
         const perPage = request.input("per_page", 20);
@@ -29,21 +23,12 @@ export default class VehiclesController {
         return theVehicles;
     }
 
-    /**
-    * Muestra un vehiculo dado el id por la url
-    * @param {HttpContextContract} params - peticion del usuario
-    * @returns {Vehicle} - un vehiculo
-    */
+    //ver una sola 
     public async show({ params }: HttpContextContract) {
         return Vehicle.findOrFail(params.id);
     }
 
-    /**
-     * Actualiza los datos del vehiculo
-     * @param {HttpContextContract} request - solicitud con el body con informacion de los cambios
-     * @param {HttpContextContract} params - parametros dados por URL
-     * @returns hace efectivo el cambio en la base de datos
-     */
+    //Update
     public async update({ params, request }: HttpContextContract) {
         const body = request.body();
         const theVehicle: Vehicle = await Vehicle.findOrFail(params.id);
@@ -52,18 +37,13 @@ export default class VehiclesController {
         theVehicle.year = body.year;
         theVehicle.color = body.color;
         theVehicle.plate = body.plate;
-        theVehicle.passengerCapacity = body.passengerCapacity;
-        theVehicle.propertyCard = body.propertyCard;
+        theVehicle.passenger_capacity = body.passenger_capacity;
+        theVehicle.property_card = body.property_card;
         theVehicle.soat = body.soat;
         return theVehicle.save();
     }
 
-    /**
-     * busca y elimina un viaje dando el id como parametro
-     * @param {HttpContextContract} response - respuesta por parte del servidor
-     * @param {HttpContextContract} params - parametros dados por URL
-     * @returns hace efectiva la eliminacion en la base de datos
-     */
+    //Delete
     public async destroy({ params, response }: HttpContextContract) {
         const theVehicle: Vehicle = await Vehicle.findOrFail(params.id);
         response.status(204);

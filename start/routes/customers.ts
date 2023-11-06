@@ -6,6 +6,7 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
     Route.post("/customer","CustomersController.store");
     Route.get("/customer","CustomersController.index");
+    Route.post("/customer/list","CustomersController.storeList");
     Route.get("/customer/:id","CustomersController.show");
     Route.put("/customer/:id","CustomersController.update");
     Route.delete("/customer/:id","CustomersController.destroy");

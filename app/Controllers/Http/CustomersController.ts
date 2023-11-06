@@ -4,14 +4,14 @@ import Env from '@ioc:Adonis/Core/Env'
 import axios from 'axios'
 
 export default class CustomersController {
-    /**
-     * Almacena la informacion de un usuario
-     * @param {HttpContextContract} request - peticion del usuario
-     * @returns {Customer} - la factura con su id
-     */
-    public async store({ request }: HttpContextContract) {
-        let body = request.body()
 
+
+    /**
+     * Hace peticiones para la creacion de User
+     * @param body 
+     * @returns {Customer} - el cliente con su usuario
+     */
+    public async create(body) {
         let result = await axios.post(`${Env.get('MS-SECURITY')}/private/users`, body)
 
         let bodyCustomer = {
@@ -20,14 +20,38 @@ export default class CustomersController {
         }
         let theCustomer
         let asignacionRol
-        if (result.data) {
+        if (result.data != "") {
             theCustomer = await Customer.create(bodyCustomer)
             if (theCustomer) {
-                asignacionRol = await axios.put(`${Env.get('MS-SECURITY')}/private/users/${bodyCustomer.user_id}/role/6546e9750c4d084e46c328ed`)
+               asignacionRol = await axios.put(`${Env.get('MS-SECURITY')}/private/users/${bodyCustomer.user_id}/role/6546e9750c4d084e46c328ed`)
                 console.log(asignacionRol)
+                return { ...theCustomer.toJSON(), user: asignacionRol.data };
             }
         }
-        return { ...theCustomer.toJSON(), user: asignacionRol.data };
+        return { response: 404, error:"No se pudo crear el usuario correctamente"};
+    }
+
+
+    /**
+     * Almacena la informacion de un usuario
+     * @param {HttpContextContract} request - peticion del usuario
+     * @returns {Customer} - el cliente con su id
+     */
+    public async store({ request }: HttpContextContract) {
+        let body = request.body()
+        return await this.create(body)
+    }
+
+
+    /**
+     * name
+     */
+    public async storeList({ request }: HttpContextContract) {
+        let body = request.body()
+        let customers:Customer[] 
+        body.forEach(async customer => {
+            customers.push(await this.create(customer))
+        });
     }
 
     /**

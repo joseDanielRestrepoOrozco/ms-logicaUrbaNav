@@ -22,10 +22,10 @@ export default class Vehicle extends BaseModel {
   public plate:string
 
   @column()
-  public passengerCapacity:number
+  public passenger_capacity:number
 
   @column()
-  public propertyCard:string
+  public property_card:string
 
   @column()
   public soat:string
