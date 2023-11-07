@@ -5,6 +5,37 @@ import axios from 'axios'
 
 export default class CustomersController {
 
+    public async get_token(request) {
+        let theRequest = request.toJSON()
+        let token: string = ''
+        if (theRequest.headers.authorization) {
+            token = theRequest.headers.authorization.replace("Bearer ", "")
+        }
+    }
+
+    /**
+    * Almacena la informacion de un usuario
+    * @param {HttpContextContract} request - peticion del usuario
+    * @returns {Customer} - el cliente con su id
+    */
+    public async CreateOnlyCustomer({ request, params }: HttpContextContract) {
+        let body = request.body()
+        let user = (await axios.get(`${Env.get('MS-SECURITY')}/private/users/${params.id}`)).data
+        const page = request.input('page', 1)
+        const perPage = request.input('per_page', 20)
+        let customers = await Customer.query().paginate(page, perPage)
+        let seguir = true
+        customers.serialize().data.forEach(customer => {
+            if (customer.user_id === params.id) {
+                seguir = false
+            }
+        });
+        if (user != '' && seguir) {
+            return await this.create(body)
+        }
+        return { response: 404, error: "No se pudo crear el cliente correctamente" };
+    }
+
     /**
      * Hace peticiones para la creacion de User
      * @param body 
@@ -38,6 +69,7 @@ export default class CustomersController {
      */
     public async store({ request }: HttpContextContract) {
         let body = request.body()
+
         return await this.create(body)
     }
 
@@ -128,14 +160,13 @@ export default class CustomersController {
 
             })
 
-
-            let pqrs = (await axios.get(`${Env.get('MS-SECURITY')}/private/pqrs/user/${theCustomer.user_id}`)).data;
+            let pqrs: Object[] = (await axios.get(`${Env.get('MS-SECURITY')}/private/pqrs/user/${theCustomerSerialze.user_id}`)).data;
             pqrs.forEach(async pqr => {
                 await axios.delete(`${Env.get('MS-SECURITY')}/private/pqrs/${pqr["_id"]}`)
             });
 
             console.log(pqrs, theCustomer.user_id)
-            await axios.delete(`${Env.get('MS-SECURITY')}/private/users/${theCustomer.user_id}`)
+            await axios.delete(`${Env.get('MS-SECURITY')}/private/users/${theCustomerSerialze.user_id}`)
 
             await theCustomer.delete()
             response.status(204)
