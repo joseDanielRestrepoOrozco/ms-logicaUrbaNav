@@ -12,11 +12,8 @@ export default class Driver extends BaseModel {
   @column()
   public user_id: string
 
-  /**
-   * columnas de foreing key de vehiculo y puntos
-   */
-  //@column()
-  //public vehicle_id: number
+  @column()
+  public vehicle_id: number
 
   @column()
   public point_id: number

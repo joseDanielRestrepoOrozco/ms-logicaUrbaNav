@@ -18,7 +18,6 @@ export default class extends BaseSchema {
       table.integer('passenger_capacity').notNullable()
       table.string('property_card', 40).notNullable()
       table.string('soat', 40).notNullable()
-     
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, ManyToMany, column, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Route from './Route'
 
 export default class Point extends BaseModel {
@@ -8,12 +8,12 @@ export default class Point extends BaseModel {
 
   @column()
   public name: string
+
   @column()
   public latitude: number
+
   @column()
   public longitude: number
-  @column()
-  public route_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -21,8 +21,11 @@ export default class Point extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(() => Route, {
-    foreignKey: 'route_id'
+  @manyToMany(() => Route, {
+    pivotTable: 'points_routes',
+    pivotForeignKey: 'point_id',
+    pivotRelatedForeignKey: 'route_id',
+    pivotColumns: ['index']
   })
-  public points: BelongsTo<typeof Route>
+  public routes: ManyToMany<typeof Route>
 }

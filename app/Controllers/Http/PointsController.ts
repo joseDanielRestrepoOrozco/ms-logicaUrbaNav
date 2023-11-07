@@ -48,7 +48,6 @@ export default class PointsController {
         thePoint.name = body.name;
         thePoint.latitude = body.latitude;
         thePoint.longitude = body.longitude;
-        thePoint.route_id = body.route_id;
         return thePoint.save()
     }
 
