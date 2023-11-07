@@ -1,24 +1,57 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Customer from 'App/Models/Customer'
+import Env from '@ioc:Adonis/Core/Env'
+import axios from 'axios'
 
 export default class CustomersController {
+
+
+    /**
+     * Hace peticiones para la creacion de User
+     * @param body 
+     * @returns {Customer} - el cliente con su usuario
+     */
+    public async create(body) {
+        let result = await axios.post(`${Env.get('MS-SECURITY')}/private/users`, body)
+
+        let bodyCustomer = {
+            contactEmergency: body["contactEmergency"],
+            user_id: result.data["_id"]
+        }
+        let theCustomer
+        let asignacionRol
+        if (result.data != "") {
+            theCustomer = await Customer.create(bodyCustomer)
+            if (theCustomer) {
+                asignacionRol = await axios.put(`${Env.get('MS-SECURITY')}/private/users/${bodyCustomer.user_id}/role/6546e9750c4d084e46c328ed`)
+                console.log(asignacionRol)
+                return { ...theCustomer.toJSON(), user: asignacionRol.data };
+            }
+        }
+        return { response: 404, error: "No se pudo crear el usuario correctamente" };
+    }
+
+
     /**
      * Almacena la informacion de un usuario
      * @param {HttpContextContract} request - peticion del usuario
-     * @returns {Customer} - la factura con su id
+     * @returns {Customer} - el cliente con su id
      */
     public async store({ request }: HttpContextContract) {
         let body = request.body()
-            // Resolviendo Union de Mongo NO TOCAR   ENSERIO!!!! 
-            //let user = body.user_id
-            //const result = await axios.get(`${Env.get('MS-SECURITY')}/api/user/{user}`,
-            //{
-            //    headers: {
-             //     Authorization: `Bearer ${token}`
-            //    }
-             // })
-        const theCustomer = await Customer.create(body)
-        return theCustomer
+        return await this.create(body)
+    }
+
+
+    /**
+     * name
+     */
+    public async storeList({ request }: HttpContextContract) {
+        let body = request.body()
+        let customers: Customer[]
+        body.forEach(async customer => {
+            customers.push(await this.create(customer))
+        });
     }
 
     /**
@@ -29,17 +62,40 @@ export default class CustomersController {
     public async index({ request }: HttpContextContract) {
         const page = request.input('page', 1)
         const perPage = request.input('per_page', 20)
-        let customers: Customer[] = await Customer.query().paginate(page, perPage)
-        return customers
+        let customers = await Customer.query().paginate(page, perPage)
+        type CustomerInfo = {
+            user: any,
+            Pqrs: any,
+            PaymentMethod: any
+        }
+        let infoCompleta: CustomerInfo[] = []
+
+        for (let customer of customers.serialize().data) {
+
+            let user = (await axios.get(`${Env.get('MS-SECURITY')}/private/users/${customer.user_id}`)).data
+            let PaymentMethod = (await axios.get(`${Env.get('MS-SECURITY')}/private/paymentmethod/user/${customer.user_id}`)).data
+            let Pqrs = (await axios.get(`${Env.get('MS-SECURITY')}/private/pqrs/user/${customer.user_id}`)).data
+
+            infoCompleta.push({ ...customer, user, PaymentMethod, Pqrs })
+        }
+
+        return { pagination: customers.serialize().meta, customers: infoCompleta }
     }
 
+
     /**
-    * Muestra un cliente dado el id por la url
+    * Muestra un cliente dado el id por la urls
     * @param {HttpContextContract} params - peticion del usuario
     * @returns {Customer} - un cliente
     */
     public async show({ params }: HttpContextContract) {
-        return Customer.findOrFail(params.id)
+        let theCustomer: Customer = await Customer.findOrFail(params.id)
+        let customer = theCustomer.serialize()
+        let user = (await axios.get(`${Env.get('MS-SECURITY')}/private/users/${customer.user_id}`)).data
+        let PaymentMethod = (await axios.get(`${Env.get('MS-SECURITY')}/private/paymentmethod/user/${customer.user_id}`)).data
+        let Pqrs = (await axios.get(`${Env.get('MS-SECURITY')}/private/pqrs/user/${customer.user_id}`)).data
+
+        return { ...theCustomer.toJSON(), user, PaymentMethod, Pqrs };
     }
 
     /**
@@ -51,8 +107,10 @@ export default class CustomersController {
     public async update({ params, request }: HttpContextContract) {
         const body = request.body()
         const theCustomer: Customer = await Customer.findOrFail(params.id)
-        theCustomer.contactEmergency = body.contactEmergency
-        return theCustomer.save()
+        theCustomer.contactEmergency = body.contactEmergency;
+        let user = (await axios.put(`${Env.get('MS-SECURITY')}/private/users/${theCustomer.user_id}`, body)).data;
+        let customer = await theCustomer.save()
+        return { ...customer.toJSON(), user };
     }
 
     /**
@@ -62,9 +120,31 @@ export default class CustomersController {
      * @returns {Customer} - lo que devuelve la solicitud de eliminacion
      */
     public async destroy({ params, response }: HttpContextContract) {
-        const theCustomer: Customer = await Customer.findOrFail(params.id)
-        response.status(204)
-        return theCustomer.delete()
-        //// -------->      REVISAR
+        try {
+            let theCustomer: Customer = await Customer.findOrFail(params.id)
+            let theCustomerSerialze = theCustomer.serialize()
+            let payment: Object[] = (await axios.get(`${Env.get('MS-SECURITY')}/private/paymentmethod/user/${theCustomerSerialze.user_id}`)).data
+            payment.forEach(async pay => {
+                await axios.delete(`${Env.get('MS-SECURITY')}/private/paymentmethod/${pay["_id"]}`);
+
+            })
+
+
+            let pqrs = (await axios.get(`${Env.get('MS-SECURITY')}/private/pqrs/user/${theCustomer.user_id}`)).data;
+            pqrs.forEach(async pqr => {
+                await axios.delete(`${Env.get('MS-SECURITY')}/private/pqrs/${pqr["_id"]}`)
+            });
+
+            console.log(pqrs, theCustomer.user_id)
+            await axios.delete(`${Env.get('MS-SECURITY')}/private/users/${theCustomer.user_id}`)
+
+            await theCustomer.delete()
+            response.status(204)
+            return response
+        } catch (error) {
+            console.log(error)
+            return response.status(504)
+        }
+
     }
 }

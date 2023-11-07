@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Driver from 'App/Models/Driver'
-//import Env from '@ioc:Adonis/Core/Env'
+import axios from 'axios'
+import Env from '@ioc:Adonis/Core/Env'
 
 export default class DriversController {
         /**
@@ -10,16 +11,27 @@ export default class DriversController {
         */
         public async store({ request }: HttpContextContract) {
             let body = request.body()
-            // Resolviendo Union de Mongo NO TOCAR   ENSERIO!!!! 
-            //let user = body.user_id
-            //const result = await axios.get(`${Env.get('MS-SECURITY')}/api/user/{user}`,
-            //{
-            //    headers: {
-             //     Authorization: `Bearer ${token}`
-            //    }
-             // })
-            const theDriver = await Driver.create(body)
-            return theDriver
+
+            let result = await axios.post(`${Env.get('MS-SECURITY')}/private/users`, body)
+    
+            let bodyDriver = {
+                contactEmergency: body["contactEmergency"],
+                user_id: result.data["_id"]
+            }
+            let theDriver
+            let asignacionRol
+            if (result.data) {
+                theDriver = await Driver.create(bodyDriver)
+                if(theDriver){
+                    asignacionRol = await axios.put(`${Env.get('MS-SECURITY')}/private/users/${bodyDriver.user_id}/role/6546e9c40c4d084e46c328ee`)
+                    console.log(asignacionRol)
+                }
+            }
+            
+            return {
+                driver:theDriver,
+                user: asignacionRol.data
+            }
         }
     
         /**
@@ -49,7 +61,18 @@ export default class DriversController {
         * @returns {Driver} - un conductor
         */
         public async show({ params }: HttpContextContract) {
-            return Driver.findOrFail(params.id)
+            let theDriver: Driver = await Driver.query().where("id", params.id).preload('customers').firstOrFail();
+            const customers = await theDriver.related('customers').query()
+            const trips = customers.map((customer) =>{
+                return{
+                    "date": customer.$extras.pivot_date,
+                    "price": customer.$extras.pivot_price,
+                    "status": customer.$extras.pivot_status,
+                    "route": customer.$extras.pivot_route,
+                    "customer": customer.toJSON()
+            }
+            })
+            return {...theDriver.toJSON(),"trips":trips}
         }
     
         /**

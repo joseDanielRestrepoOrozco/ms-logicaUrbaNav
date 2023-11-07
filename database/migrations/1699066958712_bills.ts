@@ -15,8 +15,8 @@ export default class extends BaseSchema {
       
       table.integer('trip_id').unsigned().references('trips.id')
       
-      table.timestamp('created_at', { useTz: true })
-      table.timestamp('updated_at', { useTz: true })
+      table.timestamp('created_at').defaultTo(this.raw('CURRENT_TIMESTAMP'))
+      table.timestamp('updated_at').defaultTo(this.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))  
     })
   }
 

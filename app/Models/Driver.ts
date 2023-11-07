@@ -28,7 +28,7 @@ export default class Driver extends BaseModel {
     pivotTable: 'trips',
     pivotForeignKey: 'driver_id',
     pivotRelatedForeignKey: 'customer_id',
-    pivotColumns: ['date']
+    pivotColumns: ['date','price','status','route']
   })
   public customers: ManyToMany<typeof Customer>
 }

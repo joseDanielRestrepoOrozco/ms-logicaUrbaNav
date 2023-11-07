@@ -3,7 +3,6 @@ import Vehicle from 'App/Models/Vehicle';
 
 export default class VehiclesController {
 
-    
     /**
     * Almacena la informacion de un vehiculo
     * @param {HttpContextContract} request - peticion del usuario
@@ -16,11 +15,7 @@ export default class VehiclesController {
 
     }
 
-    /**
-     * Lista todas los vehiculos con paginadores
-     * @param {HttpContextContract} request - peticion del usuario
-     * @returns {Bill[]} - listado de los vehiculos con paginadores  
-     */ 
+    //listar 
     public async index({ request }: HttpContextContract) {
         const page = request.input('page', 1);
         const perPage = request.input("per_page", 20);
@@ -28,21 +23,12 @@ export default class VehiclesController {
         return theVehicles;
     }
 
-    /**
-     * Muestra un vehiculo dado el id por la url
-     * @param {HttpContextContract} params - parametros dado por Url
-     * @returns {Bill} - un vehiculo
-     */
+    //ver una sola 
     public async show({ params }: HttpContextContract) {
         return Vehicle.findOrFail(params.id);
     }
 
-    /**
-     * Actualiza un vehiculo
-     * @param {HttpContextContract} params - parametros dados por Url
-     * @param {HttpContextContract} request - peticion del usuario
-     * @returns {Bill} - lo que devuelve la solicitud de guardado de un vehiculo
-     */
+    //Update
     public async update({ params, request }: HttpContextContract) {
         const body = request.body();
         const theVehicle: Vehicle = await Vehicle.findOrFail(params.id);
@@ -57,12 +43,7 @@ export default class VehiclesController {
         return theVehicle.save();
     }
 
-   /**
-     * elimina un vehiculo
-     * @param {HttpContextContract} params - parametros dados por Url
-     * @param {HttpContextContract} response - respuesta para el usuario
-     * @returns {Bill} - lo que devuelve la solicitud de eliminacion
-     */
+    //Delete
     public async destroy({ params, response }: HttpContextContract) {
         const theVehicle: Vehicle = await Vehicle.findOrFail(params.id);
         response.status(204);
