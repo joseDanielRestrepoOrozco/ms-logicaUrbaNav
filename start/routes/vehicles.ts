@@ -9,5 +9,4 @@ Route.group(() => {
     Route.get("/vehicle/:id","VehiclesController.show");
     Route.put("/vehicle/:id","VehiclesController.update");
     Route.delete("/vehicle/:id","VehiclesController.destroy");
-}
-)
+})//.middleware(['security'])
