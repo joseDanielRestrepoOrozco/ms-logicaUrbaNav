@@ -4,10 +4,10 @@ import Route from '@ioc:Adonis/Core/Route'
  * Proteccion de rutas
  */
 Route.group(() => {
-    Route.post("/customer","CustomersController.store");
-    Route.get("/customer","CustomersController.index");
-    Route.post("/customer/list","CustomersController.storeList");
-    Route.get("/customer/:id","CustomersController.show");
-    Route.put("/customer/:id","CustomersController.update");
-    Route.delete("/customer/:id","CustomersController.destroy");
+    Route.post("/customers","CustomersController.store");
+    Route.get("/customers","CustomersController.index");
+    Route.post("/customers/list","CustomersController.storeList");
+    Route.get("/customers/:id","CustomersController.show");
+    Route.put("/customers/:id","CustomersController.update");
+    Route.delete("/customers/:id","CustomersController.destroy");
 })//.middleware(['security'])

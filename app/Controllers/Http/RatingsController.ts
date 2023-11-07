@@ -60,10 +60,10 @@ export default class RatingsController {
      * @param {HttpContextContract} response - respuesta para el usuario
      * @returns {Rating} - lo que devuelve la solicitud de eliminacion
      */
-        public async destroy({params, response}: HttpContextContract) {
-            let theRating:Rating = await Rating.findOrFail(params.id);
-            response.status(204)
-            return theRating.delete()
-        }
+    public async destroy({ params, response }: HttpContextContract) {
+        let theRating: Rating = await Rating.findOrFail(params.id);
+        response.status(204)
+        return theRating.delete()
+    }
 
 }

@@ -48,7 +48,7 @@ export default class BillsController {
         const theBill:Bill = await Bill.findOrFail(params.id);
         theBill.price = body.price;
         theBill.date = body.date;
-        //theBill.trip = body.trip;
+        theBill.trip_id = body.trip_id;
         return theBill.save()
     }
 

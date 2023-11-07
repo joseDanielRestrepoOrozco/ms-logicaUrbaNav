@@ -5,7 +5,6 @@ import axios from 'axios'
 
 export default class CustomersController {
 
-
     /**
      * Hace peticiones para la creacion de User
      * @param body 

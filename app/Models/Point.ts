@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, ManyToMany, column, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasMany, ManyToMany, column, hasMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Route from './Route'
+import Driver from './Driver'
 
 export default class Point extends BaseModel {
   @column({ isPrimary: true })
@@ -20,6 +21,11 @@ export default class Point extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @hasMany(() => Driver, {
+    foreignKey: 'point_id',
+  })
+  public drivers: HasMany<typeof Driver>
 
   @manyToMany(() => Route, {
     pivotTable: 'points_routes',

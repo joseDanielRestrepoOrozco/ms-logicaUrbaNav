@@ -3,7 +3,6 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class extends BaseSchema {
   protected tableName = 'customers'
 
-
   /**
    * Metodo encargado de crear la tabla en MySQL
    */

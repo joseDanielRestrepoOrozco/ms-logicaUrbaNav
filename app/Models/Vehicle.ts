@@ -37,7 +37,7 @@ export default class Vehicle extends BaseModel {
   public updatedAt: DateTime
 
   @hasOne(() => Driver, {
-    foreignKey: 'vehicle_id', // defaults to theaterId
+    foreignKey: 'vehicle_id',
   })
   public driver: HasOne<typeof Driver>
 }

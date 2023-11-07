@@ -8,9 +8,9 @@ export default class VehiclesController {
     * @param {HttpContextContract} request - peticion del usuario
     * @returns {Bill} - el vehiculo con su id
     */
-    public async store({request}: HttpContextContract){
-        let body=request.body();
-        const theVehicle=await Vehicle.create(body);
+    public async store({ request }: HttpContextContract) {
+        let body = request.body();
+        const theVehicle = await Vehicle.create(body);
         return theVehicle;
 
     }
@@ -19,7 +19,7 @@ export default class VehiclesController {
     public async index({ request }: HttpContextContract) {
         const page = request.input('page', 1);
         const perPage = request.input("per_page", 20);
-        let theVehicles:Vehicle[]= await Vehicle.query().paginate(page, perPage)
+        let theVehicles: Vehicle[] = await Vehicle.query().paginate(page, perPage)
         return theVehicles;
     }
 

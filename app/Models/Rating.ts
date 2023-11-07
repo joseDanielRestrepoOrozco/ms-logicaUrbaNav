@@ -27,14 +27,3 @@ export default class Rating extends BaseModel {
   @belongsTo(() => Trip)
   public trip: BelongsTo<typeof Trip>
 }
-
-/*
-customers
-points
-routes
-drivers
-vehicles
-trips
-bills
-ratings
-*/

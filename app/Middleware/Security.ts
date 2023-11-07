@@ -9,34 +9,34 @@ export default class Security {
     // Sacar el token de un usuario (RECORDAR ESTA LINEA, ES UTIL)
     if (theRequest.headers.authorization) {
       let token = theRequest.headers.authorization.replace("Bearer ", "")
-    let data: object = {
-      url: theRequest.url,
-      method: theRequest.method
-    }
-    try {
-      // llamo al endpoint que está en el ms-security
-      // a esta peticion tengo que ponerle tambien un token porque se debe autenticar (con bearer token)
-      const result = await axios.post(`${Env.get('MS-SECURITY')}/api/public/security/permissions-validation`, data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      )
-      // el ms-security me devuelve algo o nada para saber si fue exitosa la autenticación
-      console.log("La respuesta de ms-security >" + result.data + "<")
-      if (result.data == "") {
-        console.log("no puede ingresar")
-        return response.status(401)
-      } else {
-        console.log(result.data)
-        await next()
+      let data: object = {
+        url: theRequest.url,
+        method: theRequest.method
       }
-    } catch (error) {
-      console.error(error)
-      return response.status(401)
-    }
-  
+      try {
+        // llamo al endpoint que está en el ms-security
+        // a esta peticion tengo que ponerle tambien un token porque se debe autenticar (con bearer token)
+        const result = await axios.post(`${Env.get('MS-SECURITY')}/api/public/security/permissions-validation`, data,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+        // el ms-security me devuelve algo o nada para saber si fue exitosa la autenticación
+        console.log("La respuesta de ms-security >" + result.data + "<")
+        if (result.data == "") {
+          console.log("no puede ingresar")
+          return response.status(401)
+        } else {
+          console.log(result.data)
+          await next()
+        }
+      } catch (error) {
+        console.error(error)
+        return response.status(401)
+      }
+
     } else {
       response.status(401)
     }
