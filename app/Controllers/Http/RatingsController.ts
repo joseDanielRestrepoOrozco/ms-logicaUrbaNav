@@ -14,6 +14,15 @@ export default class RatingsController {
         return theRating
     }
 
+
+    public async storeList({ request }: HttpContextContract) {
+        let body = request.body();
+        body.forEach(async rating => {
+            const theRating = await Rating.create(rating);
+            return theRating
+        });
+    }
+
     /**
      * Lista todas las calificaciones con paginadores
      * @param {HttpContextContract} request - peticion del usuario

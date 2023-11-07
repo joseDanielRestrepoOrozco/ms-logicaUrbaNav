@@ -1,0 +1,68 @@
+[
+    {
+        "stars": 5,
+        "comment": "Excelente conductor no me secuestro :)",
+        "date": "2023-11-06",
+        "trip_id": "{modificar por uno existente}"
+    },  
+    {
+        "stars": 5,
+        "comment": "Excelente servicio, muy puntual y cordial.",
+        "date": "2023-11-06",
+        "trip_id": ""
+    },
+    {
+        "stars": 4,
+        "comment": "Buen viaje, conductor amable, pero el vehículo podría estar más limpio.",
+        "date": "2023-11-05",
+        "trip_id": ""
+    },
+    {
+        "stars": 3,
+        "comment": "Viaje aceptable, aunque el conductor tomó una ruta más larga de lo necesario.",
+        "date": "2023-11-04",
+        "trip_id": ""
+    },
+    {
+        "stars": 5,
+        "comment": "¡Experiencia fantástica! Muy profesional.",
+        "date": "2023-11-03",
+        "trip_id": ""
+    },
+    {
+        "stars": 2,
+        "comment": "El conductor fue respetuoso, pero llegó tarde.",
+        "date": "2023-11-02",
+        "trip_id": ""
+    },
+    {
+        "stars": 1,
+        "comment": "Mala experiencia, el conductor estaba distraído y no se sentía seguro.",
+        "date": "2023-11-01",
+        "trip_id": ""
+    },
+    {
+        "stars": 4,
+        "comment": "Conductor profesional, pero el aire acondicionado estaba demasiado alto.",
+        "date": "2023-10-31",
+        "trip_id": ""
+    },
+    {
+        "stars": 5,
+        "comment": "Excelente conversación y viaje confortable.",
+        "date": "2023-10-30",
+        "trip_id": ""
+    },
+    {
+        "stars": 3,
+        "comment": "Viaje promedio, nada especial pero llegamos a tiempo.",
+        "date": "2023-10-29",
+        "trip_id": ""
+    },
+    {
+        "stars": 5,
+        "comment": "Servicio impresionante, conductor experto y amigable.",
+        "date": "2023-10-28",
+        "trip_id": ""
+    }
+]

@@ -14,6 +14,16 @@ export default class PointsController {
         return thePoint
     }
 
+    public async storeList({ request }: HttpContextContract) {
+        let body = request.body();
+        body.forEach(async point => {
+            const thePoint = await Point.create(point);
+            return thePoint
+        });
+    }
+
+    
+
     /**
      * Lista todas los puntos con paginadores
      * @param {HttpContextContract} request - peticion del usuario
@@ -47,8 +57,7 @@ export default class PointsController {
         const thePoint:Point = await Point.findOrFail(params.id);
         thePoint.name = body.name;
         thePoint.latitude = body.latitude;
-        thePoint.longitude = body.longitude;
-        thePoint.route_id = body.route_id;
+        thePoint.logitude = body.longitude;
         return thePoint.save()
     }
 

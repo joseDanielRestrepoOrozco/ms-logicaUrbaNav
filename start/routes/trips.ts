@@ -5,9 +5,10 @@ import Route from '@ioc:Adonis/Core/Route'
  */
 Route.group(() => {
     Route.post("/trip","TripsController.store");
+    Route.post("/trip/user/:id","TripsController.CreateOnlyDriver");
     Route.get("/trip","TripsController.index");
     Route.get("/trip/:id","TripsController.show");
     Route.put("/trip/:id","TripsController.update");
-    Route.delete("//:id","TripsController.destroy");
+    Route.delete("/trip/:id","TripsController.destroy");
 }
 )

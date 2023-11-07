@@ -14,6 +14,14 @@ export default class BillsController {
         return theBill
     }
 
+    public async storeList({ request }: HttpContextContract) {
+        let body = request.body();
+        body.forEach(async bill => {
+            const theBill = await Bill.create(bill);
+            return theBill
+        });
+    }
+
     /**
      * Lista todas las facturas con paginadores
      * @param {HttpContextContract} request - peticion del usuario
