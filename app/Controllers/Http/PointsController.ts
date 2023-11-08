@@ -14,6 +14,9 @@ export default class PointsController {
         return thePoint
     }
 
+
+
+
     public async storeList({ request }: HttpContextContract) {
         let body = request.body();
         body.forEach(async point => {
