@@ -141,7 +141,7 @@ export default class DriversController {
                 "date": customer.$extras.pivot_date,
                 "price": customer.$extras.pivot_price,
                 "status": customer.$extras.pivot_status,
-                "route": customer.$extras.pivot_route,
+                "route_id": customer.$extras.pivot_route_id,
                 "customer": customer.toJSON()
             }
         })

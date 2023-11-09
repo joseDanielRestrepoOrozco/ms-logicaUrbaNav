@@ -22,7 +22,7 @@ export default class Customer extends BaseModel {
     pivotTable: 'trips',
     pivotForeignKey: 'customer_id',
     pivotRelatedForeignKey: 'driver_id',
-    pivotColumns: ['date','price','status','route']
+    pivotColumns: ['date','price','status','route_id']
   })
   public drivers: ManyToMany<typeof Driver>
 }
