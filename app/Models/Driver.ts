@@ -7,7 +7,7 @@ export default class Driver extends BaseModel {
   public id: number
 
   @column()
-  public isAvailable: boolean
+  public is_available: boolean
 
   @column()
   public user_id: string

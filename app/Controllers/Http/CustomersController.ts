@@ -5,7 +5,7 @@ import axios from 'axios'
 
 export default class CustomersController {
 
-
+    
     public async get_token(request){
         let theRequest = request.toJSON()
         let token
@@ -54,7 +54,7 @@ export default class CustomersController {
         if (result.data != "") {
             theCustomer = await Customer.create(bodyCustomer)
             if (theCustomer) {
-               asignacionRol = await axios.put(`${Env.get('MS-SECURITY')}/private/users/${bodyCustomer.user_id}/role/6546e9750c4d084e46c328ed`)
+                asignacionRol = await axios.put(`${Env.get('MS-SECURITY')}/private/users/${bodyCustomer.user_id}/role/6546e9750c4d084e46c328ed`)
                 console.log(asignacionRol)
                 return { ...theCustomer.toJSON(), user: asignacionRol.data };
             }
@@ -70,7 +70,7 @@ export default class CustomersController {
      */
     public async store({ request }: HttpContextContract) {
         let body = request.body()
-        
+
         return await this.create(body)
     }
 
@@ -161,13 +161,13 @@ export default class CustomersController {
                 await axios.delete(`${Env.get('MS-SECURITY')}/private/paymentmethod/${pay["_id"]}`);
 
             })
-            
 
+            
             let pqrs:Object[] = (await axios.get(`${Env.get('MS-SECURITY')}/private/pqrs/user/${theCustomerSerialze.user_id}`)).data;
             pqrs.forEach(async pqr => {
                 await axios.delete(`${Env.get('MS-SECURITY')}/private/pqrs/${pqr["_id"]}`)
             });
-            
+
             console.log(pqrs, theCustomer.user_id )
             await axios.delete(`${Env.get('MS-SECURITY')}/private/users/${theCustomerSerialze.user_id}`)
 

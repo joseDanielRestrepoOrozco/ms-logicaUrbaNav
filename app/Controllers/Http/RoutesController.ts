@@ -10,7 +10,7 @@ export default class RoutesController {
         const theRoute = await Route.create(body)
        return theRoute
     }
-
+    
     //Get (list all)
     public async index({ request }: HttpContextContract) {
         const page = request.input('page', 1)
@@ -36,12 +36,12 @@ export default class RoutesController {
     public async update({ params, request }: HttpContextContract) {
         const body = request.body()
         const theRoute: Route = await Route.findOrFail(params.id)
-        theRoute.name = body.name
+theRoute.name = body.name
         theRoute.name = body.name
         theRoute.origin = body.origin
         theRoute.destination = body.destination
         return theRoute.save()
-
+    
     }
 
     //Delete

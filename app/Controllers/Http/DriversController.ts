@@ -15,12 +15,12 @@ export default class DriversController {
         return token
     }
 
-     /**
-    * Almacena la informacion de un usuario
-    * @param {HttpContextContract} request - peticion del usuario
-    * @returns {Driver} - el cliente con su id
-    */
-     public async CreateOnlyDriver({ request, params}: HttpContextContract) {
+    /**
+   * Almacena la informacion de un usuario
+   * @param {HttpContextContract} request - peticion del usuario
+   * @returns {Driver} - el cliente con su id
+   */
+    public async CreateOnlyDriver({ request, params}: HttpContextContract) {
         let body = request.body()
         let user = (await axios.get(`${Env.get('MS-SECURITY')}/private/users/${params.id}`)).data
         const page = request.input('page', 1)
@@ -47,7 +47,7 @@ export default class DriversController {
         let result = await axios.post(`${Env.get('MS-SECURITY')}/private/users`, body)
 
         let bodyCustomer = {
-            isAvailable: body["isAvailable"],
+            is_available: body["is_available"],
             vehicle_id: body["vehicle_id"],
             user_id: result.data["_id"]
         }
@@ -157,7 +157,7 @@ export default class DriversController {
     public async update({ params, request }: HttpContextContract) {
         const body = request.body()
         const theDriver: Driver = await Driver.findOrFail(params.id)
-        theDriver.isAvailable = body.isAvailable
+        theDriver.is_available = body.isAvailable
         let user = (await axios.put(`${Env.get('MS-SECURITY')}/private/users/${theDriver.user_id}`, body)).data;
         let driver = await theDriver.save()
         return { ...driver.toJSON(), user };
@@ -174,19 +174,19 @@ export default class DriversController {
         try {
             let theDriver: Driver = await Driver.findOrFail(params.id)
             let theDriverSerialze = theDriver.serialize()
-            let payment:Object[] = (await axios.get(`${Env.get('MS-SECURITY')}/private/paymentmethod/user/${theDriverSerialze.user_id}`)).data
-            payment.forEach(async pay =>{
+            let payment: Object[] = (await axios.get(`${Env.get('MS-SECURITY')}/private/paymentmethod/user/${theDriverSerialze.user_id}`)).data
+            payment.forEach(async pay => {
                 await axios.delete(`${Env.get('MS-SECURITY')}/private/paymentmethod/${pay["_id"]}`);
 
             })
-            
 
-            let pqrs:Object[] = (await axios.get(`${Env.get('MS-SECURITY')}/private/pqrs/user/${theDriverSerialze.user_id}`)).data;
+
+            let pqrs: Object[] = (await axios.get(`${Env.get('MS-SECURITY')}/private/pqrs/user/${theDriverSerialze.user_id}`)).data;
             pqrs.forEach(async pqr => {
                 await axios.delete(`${Env.get('MS-SECURITY')}/private/pqrs/${pqr["_id"]}`)
             });
-            
-            console.log(pqrs, theDriver.user_id )
+
+            console.log(pqrs, theDriver.user_id)
             await axios.delete(`${Env.get('MS-SECURITY')}/private/users/${theDriverSerialze.user_id}`)
 
             await theDriver.delete()

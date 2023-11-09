@@ -9,7 +9,7 @@ export default class BillsController {
      * @returns {Bill} - la factura con su id
      */
     public async store({ request }: HttpContextContract) {
-        let body = request.body();
+        let body = JSON.parse(request.body());
         const theBill = await Bill.create(body);
         return theBill
     }

@@ -10,15 +10,17 @@ export default class RatingsController {
      */
     public async store({ request }: HttpContextContract) {
         let body = request.body();
-        const theRating = await Rating.create(body);
+
+        const theRating = await Rating.create(JSON.parse(body));
         return theRating
     }
 
 
     public async storeList({ request }: HttpContextContract) {
-        let body = request.body();
+        let body = JSON.parse(request.body());
+        console.log(body)
         body.forEach(async rating => {
-            const theRating = await Rating.create(rating);
+           const theRating = await Rating.create(rating);
         });
     }
 
