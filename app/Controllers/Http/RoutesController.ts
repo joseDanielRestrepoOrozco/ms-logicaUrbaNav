@@ -8,7 +8,7 @@ export default class RoutesController {
     public async store({ request }: HttpContextContract) {
         let body = request.body()
         const theRoute = await Route.create(body)
-        return theRoute
+       return theRoute
     }
 
     //Get (list all)
@@ -17,6 +17,14 @@ export default class RoutesController {
         const perPage = request.input('per_page', 20)
         let Routes: Route[] = await Route.query().paginate(page, perPage)
         return Routes
+    }
+
+    public async storeList({ request }: HttpContextContract) {
+        let body = request.body();
+        body.forEach(async route => {
+            const theRoute = await Route.create(route);
+        });
+    
     }
 
     //Get (list one)

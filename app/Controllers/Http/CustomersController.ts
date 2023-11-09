@@ -80,9 +80,10 @@ export default class CustomersController {
      */
     public async storeList({ request }: HttpContextContract) {
         let body = request.body()
-        let customers:Customer[] 
+        
         body.forEach(async customer => {
-            customers.push(await this.create(customer))
+           await this.create(customer)
+           
         });
     }
 

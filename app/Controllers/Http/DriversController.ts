@@ -49,7 +49,6 @@ export default class DriversController {
         let bodyCustomer = {
             isAvailable: body["isAvailable"],
             vehicle_id: body["vehicle_id"],
-            point_id: body["point_id"],
             user_id: result.data["_id"]
         }
         let theDriver
@@ -84,9 +83,10 @@ export default class DriversController {
      */
     public async storeList({ request }: HttpContextContract) {
         let body = request.body()
-        let drivers:Driver[] 
+        
         body.forEach(async driver => {
-            drivers.push(await this.create(driver))
+            console.log(driver)
+            console.log(await this.create(driver))
         });
     }
 
@@ -158,7 +158,6 @@ export default class DriversController {
         const body = request.body()
         const theDriver: Driver = await Driver.findOrFail(params.id)
         theDriver.isAvailable = body.isAvailable
-        theDriver.point_id = body.point_id
         let user = (await axios.put(`${Env.get('MS-SECURITY')}/private/users/${theDriver.user_id}`, body)).data;
         let driver = await theDriver.save()
         return { ...driver.toJSON(), user };

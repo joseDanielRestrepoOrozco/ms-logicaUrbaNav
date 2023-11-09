@@ -1,0 +1,83 @@
+[
+    {
+        "name": "Juan",
+        "surname": "López",
+        "phone": 1234567890,
+        "email": "juan@gmail.com",
+        "birthdate": "1990-05-15",
+        "password": "abc",
+        "contactEmergency": 9876543210
+    },
+    {
+        "name": "María",
+        "surname": "García",
+        "phone": 5555555555,
+        "email": "maria@gmail.com",
+        "birthdate": "1985-09-20",
+        "password": "xyz",
+        "contactEmergency": 5551234567
+    },
+    {
+        "name": "Carlos",
+        "surname": "Pérez",
+        "phone": 9876543210,
+        "email": "carlos@gmail.com",
+        "birthdate": "1977-03-10",
+        "password": "789",
+        "contactEmergency": 3210987654
+    },
+    {
+        "name": "Laura",
+        "surname": "Martínez",
+        "phone": 3333333333,
+        "email": "laura@gmail.com",
+        "birthdate": "2000-08-25",
+        "password": "456",
+        "contactEmergency": 1112223333
+    },
+    {
+        "name": "Pedro",
+        "surname": "Ramírez",
+        "phone": 4444444444,
+        "email": "pedro@gmail.com",
+        "birthdate": "1999-11-12",
+        "password": "xyz123",
+        "contactEmergency": 9998887777
+    },
+    {
+        "name": "Luisa",
+        "surname": "Sánchez",
+        "phone": 2222222222,
+        "email": "luisa@gmail.com",
+        "birthdate": "1995-07-05",
+        "password": "123abc",
+        "contactEmergency": 4445556666
+    },
+    {
+        "name": "Javier",
+        "surname": "Gómez",
+        "phone": 6666666666,
+        "email": "javier@gmail.com",
+        "birthdate": "1980-01-30",
+        "password": "p4ssw0rd",
+        "contactEmergency": 8887776666
+    },
+    {
+        "name": "Ana",
+        "surname": "Fernández",
+        "phone": 1111111111,
+        "email": "ana@gmail.com",
+        "birthdate": "1989-04-18",
+        "password": "abcdef",
+        "contactEmergency": 1112223333
+    },
+    {
+        "name": "David",
+        "surname": "López",
+        "phone": 9999999999,
+        "email": "david@gmail.com",
+        "birthdate": "2002-06-08",
+        "password": "password123",
+        "contactEmergency": 3332221111
+    }
+]

@@ -19,10 +19,13 @@ export default class PointsController {
 
     public async storeList({ request }: HttpContextContract) {
         let body = request.body();
+        let array:Point[] = []
         body.forEach(async point => {
             const thePoint = await Point.create(point);
-            return thePoint
+            array.push(thePoint)
+            console.log(point,thePoint)
         });
+        return array
     }
 
     

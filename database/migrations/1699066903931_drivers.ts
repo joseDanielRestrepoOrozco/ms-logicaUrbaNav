@@ -14,8 +14,8 @@ export default class extends BaseSchema {
       /**
        * columnas para las foreing key de vehiculos y puntos
        */
-      
-      table.integer('point_id').unsigned().references('points.id').onDelete('CASCADE')
+      table.integer('vehicle_id').unsigned().references('vehicles.id').nullable()
+      //table.integer('point_id').unsigned().references('points.id').onDelete('CASCADE')
       table.timestamp('created_at').defaultTo(this.raw('CURRENT_TIMESTAMP'))
       table.timestamp('updated_at').defaultTo(this.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))  
     })

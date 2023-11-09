@@ -13,7 +13,7 @@ export default class extends BaseSchema {
 
       table.integer('stars')
       table.string('comment')
-      table.dateTime('dateTime')
+      table.dateTime('date_Time')
       table.integer('trip_id').unsigned().references('trips.id').onDelete('CASCADE')
 
       table.timestamp('created_at').defaultTo(this.raw('CURRENT_TIMESTAMP'))

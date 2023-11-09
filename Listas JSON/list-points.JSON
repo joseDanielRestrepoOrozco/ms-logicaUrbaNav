@@ -1,53 +1,43 @@
 // ejemplo de peticion: http://127.0.0.1:3333/point/list
 [   
     {
-        "name": "Catedral de Manizales",
-        "latitude": 5.0671,
-        "longitude": -75.5174    
-    },
-    {
-        "name": "Torre de El Cable",
-        "latitude": 5.0670,
-        "longitude": -75.5170
-    },
-    {
         "name": "Parque de Los Yarumos",
         "latitude": 5.0516,
-        "longitude": -75.4903
+        "logitude": -75.4903
     },
     {
         "name": "Estadio Palogrande",
         "latitude": 5.0537,
-        "longitude": -75.4903
+        "logitude": -75.4903
     },
     {
         "name": "Universidad Nacional de Colombia - Sede Manizales",
         "latitude": 5.0689,
-        "longitude": -75.5172
+        "logitude": -75.5172
     },
     {
         "name": "Parque Caldas",
         "latitude": 5.0679,
-        "longitude": -75.5189
+        "logitude": -75.5189
     },
     {
         "name": "Ecoparque Los Alcázares",
         "latitude": 5.0533,
-        "longitude": -75.4820
+        "logitude": -75.4820
     },
     {
         "name": "Monumento a Los Colonizadores",
         "latitude": 5.0722,
-        "longitude": -75.5205
+        "logitude": -75.5205
     },
     {
         "name": "Centro Comercial Mall Plaza",
         "latitude": 5.0683,
-        "longitude": -75.5201
+        "logitude": -75.5201
     },
     {
         "name": "Aeropuerto La Nubia",
         "latitude": 5.0296,
-        "longitude": -75.4647
+        "logitude": -75.4647
     }
 ]

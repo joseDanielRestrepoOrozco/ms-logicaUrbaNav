@@ -18,8 +18,6 @@ export default class Driver extends BaseModel {
   @column()
   public vehicle_id: number
 
-  @column()
-  public point_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

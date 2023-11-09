@@ -5,6 +5,7 @@ import Route from '@ioc:Adonis/Core/Route'
  */
 Route.group(() => {
     Route.post("/driver","DriversController.store");
+    Route.post("/driver/list","DriversController.storeList");
     Route.get("/driver","DriversController.index");
     Route.get("/driver/:id","DriversController.show");
     Route.put("/driver/:id","DriversController.update");

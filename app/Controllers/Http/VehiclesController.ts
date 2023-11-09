@@ -15,6 +15,18 @@ export default class VehiclesController {
 
     }
 
+    public async storeList({ request }: HttpContextContract) {
+        let body = request.body();
+        let array:Vehicle[] = []
+        body.forEach(async vehicle => {
+            const theVehicle = await Vehicle.create(vehicle);
+            array.push(theVehicle)
+            console.log(vehicle,theVehicle)
+        });
+        return array
+    }
+
+
     //listar 
     public async index({ request }: HttpContextContract) {
         const page = request.input('page', 1);

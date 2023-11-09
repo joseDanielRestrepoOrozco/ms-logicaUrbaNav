@@ -4,7 +4,7 @@ import Rating from 'App/Models/Rating';
 export default class RatingsController {
 
     /**
-     * Almacena la informacion de una factura
+     * Almacena la informacion de un comentario
      * @param {HttpContextContract} request - peticion del usuario
      * @returns {Rating} - la calificacion con su id
      */
@@ -19,7 +19,6 @@ export default class RatingsController {
         let body = request.body();
         body.forEach(async rating => {
             const theRating = await Rating.create(rating);
-            return theRating
         });
     }
 
@@ -57,7 +56,7 @@ export default class RatingsController {
         const theRating: Rating = await Rating.findOrFail(params.id);
         theRating.stars = body.stars;
         theRating.comment = body.comment;
-        theRating.date = body.date;
+        theRating.date_Time = body.date_Time;
         // theRating.trip = body.trip;
         return theRating.save()
     }

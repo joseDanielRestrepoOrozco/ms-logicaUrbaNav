@@ -1,0 +1,30 @@
+[
+    {
+        "price": 10000,
+        "status": true,
+        "route_id": 3,
+        "customer_id": 3,
+        "driver_id": 1
+    },
+    {
+        "price": 10000,
+        "status": true,
+        "route_id": 4,
+        "customer_id": 4,
+        "driver_id": 3
+    },
+    {
+        "price": 10000,
+        "status": true,
+        "route_id": 2,
+        "customer_id": 6,
+        "driver_id": 5
+    },
+    {
+        "price": 10000,
+        "status": true,
+        "route_id": 4,
+        "customer_id": 4,
+        "driver_id": 1
+    }
+]

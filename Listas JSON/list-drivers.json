@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Elena",
+        "surname": "Gomez",
+        "phone": 3234567790,
+        "email": "elena_2@hotmail.com",
+        "birthdate": "1990-05-15",
+        "password": "123",
+        "isAvailable": false,
+        "vehicle_id": 2
+    },
+    {
+        "name": "Carlos",
+        "surname": "Lopez",
+        "phone": 3550555555,
+        "email": "carlos_3@outlook.com",
+        "birthdate": "1985-09-20",
+        "password": "123",
+        "isAvailable": false,
+        "vehicle_id": 3
+    },
+    {
+        "name": "Luisa",
+        "surname": "Perez",
+        "phone": 3086543210,
+        "email": "luisa_4@yahoo.com",
+        "birthdate": "1977-03-10",
+        "password": "123",
+        "isAvailable": false,
+        "vehicle_id": 4
+    }
+]   
