@@ -10,4 +10,4 @@ Route.group(() => {
     Route.get("/driver/:id","DriversController.show");
     Route.put("/driver/:id","DriversController.update");
     Route.delete("/driver/:id","DriversController.destroy");
-})//.middleware(['security'])
+}).middleware(['security'])

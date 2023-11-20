@@ -10,4 +10,4 @@ Route.group(() => {
     Route.get("/point/:id","PointsController.show");
     Route.put("/point/:id","PointsController.update");
     Route.delete("/point/:id","PointsController.destroy");
-})//.middleware(['security'])
+}).middleware(['security'])

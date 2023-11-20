@@ -1,0 +1,71 @@
+[
+        {
+            "url": "/private/paymentmethod", 
+            "methods": ["GET","GET_1"]
+        },
+        {
+            "url": "/private/paymentmethod/user",  
+            "methods": ["GET_1"]
+        },
+        {
+            "url": "/private/permissions",
+            "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/private/pqrs",
+            "methods": ["GET", "GET_1"]
+        },
+        {
+            "url": "/private/pqrs/user",    
+            "methods": ["GET_1"]
+        },
+        {
+            "url": "/private/role-permission",
+            "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/private/roles",
+            "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/private/users",
+            "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/private/users/?/role", 
+            "methods": ["PUT"]
+        },
+        {
+            "url": "/bill",
+            "methods": ["GET", "GET_1"]
+        },
+        {
+            "url": "/customer",
+            "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/driver",
+            "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/point",
+            "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/rating",
+            "methods": ["GET", "GET_1"]
+        },
+        {
+            "url": "/route",
+            "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/trip",
+            "methods": ["GET", "GET_1"]
+        },
+        {
+            "url": "/vehicle",
+            "methods": ["GET", "GET_1"]
+        }
+
+]

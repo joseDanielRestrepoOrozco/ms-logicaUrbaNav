@@ -1,0 +1,89 @@
+[
+    {"url": "/private/paymentmethod", "method": "GET", "description": "Sirve para listar"},
+    {"url": "/private/paymentmethod", "method": "POST", "description": "Sirve para crear un nuevo método de pago"},
+    {"url": "/private/paymentmethod/?", "method": "GET", "description": "Sirve para obtener un método de pago"},
+    {"url": "/private/paymentmethod/?", "method": "DELETE", "description": "Sirve para eliminar un método de pago"},
+    {"url": "/private/paymentmethod/?", "method": "PUT", "description": "Sirve para actualizar un método de pago"},
+    {"url": "/private/paymentmethod/user/?", "method": "GET", "description": "Sirve para obtener metodos de pago de un usuario"}, //////////
+    
+    {"url": "/private/permissions", "method": "GET", "description": "Sirve para listar los permisos"},
+    {"url": "/private/permissions", "method": "POST", "description": "Sirve para crear un nuevo permiso"},
+    {"url": "/private/permissions/?", "method": "GET", "description": "Sirve para obtener un permiso"},
+    {"url": "/private/permissions/?", "method": "DELETE", "description": "Sirve para eliminar un permiso"},
+    {"url": "/private/permissions/?", "method": "PUT", "description": "Sirve para actualizar un permiso"},
+    
+    {"url": "/private/pqrs", "method": "GET", "description": "Sirve para listar las PQRS"},
+    {"url": "/private/pqrs", "method": "POST", "description": "Sirve para crear una nueva PQRS"},
+    {"url": "/private/pqrs/?", "method": "GET", "description": "Sirve para obtener una PQRS"},
+    {"url": "/private/pqrs/?", "method": "DELETE", "description": "Sirve para eliminar una PQRS"},
+    {"url": "/private/pqrs/?", "method": "PUT", "description": "Sirve para actualizar una PQRS"},
+    {"url": "/private/pqrs/user/?", "method": "GET", "description": "Sirve para obtener PQRS de un usuario"}, //////////////
+    
+    {"url": "/private/role-permission", "method": "GET", "description": "Sirve para listar las asignaciones de roles y permisos"},
+    {"url": "/private/role-permission/role/?/permission/?", "method": "POST", "description": "Sirve para asignar un permiso a un rol"}, //////////
+    {"url": "/private/role-permission/?", "method": "GET", "description": "Sirve para obtener una asignación de permiso a un rol"},
+    {"url": "/private/role-permission/?", "method": "DELETE", "description": "Sirve para desasignar un permiso de un rol"},
+    {"url": "/private/role-permission/?", "method": "PUT", "description": "Sirve para actualizar la asignación de un permiso a un rol"},
+    
+    {"url": "/private/roles", "method": "GET", "description": "Sirve para listar los roles"},
+    {"url": "/private/roles", "method": "POST", "description": "Sirve para crear un nuevo rol"},
+    {"url": "/private/roles/?", "method": "GET", "description": "Sirve para obtener un rol"},
+    {"url": "/private/roles/?", "method": "DELETE", "description": "Sirve para eliminar un rol"},
+    {"url": "/private/roles/?", "method": "PUT", "description": "Sirve para actualizar un rol"},
+    
+    {"url": "/private/users", "method": "GET", "description": "Sirve para listar los usuarios"},
+    {"url": "/private/users", "method": "POST", "description": "Sirve para crear un nuevo usuario"},
+    {"url": "/private/users/?", "method": "GET", "description": "Sirve para obtener un usuario"},
+    {"url": "/private/users/?", "method": "DELETE", "description": "Sirve para eliminar un usuario"},
+    {"url": "/private/users/?", "method": "PUT", "description": "Sirve para actualizar un usuario"},
+    {"url": "/private/users/?/role/?", "method": "PUT", "description": "Sirve para actualizar un usuario"},//////////
+    
+    
+    {"url": "/bill", "method": "GET", "description": "Sirve para listar las facturas"},
+    {"url": "/bill", "method": "POST", "description": "Sirve para crear una nueva factura"},
+    {"url": "/bill/?", "method": "GET", "description": "Sirve para obtener una factura"},
+    {"url": "/bill/?", "method": "DELETE", "description": "Sirve para eliminar una factura"},
+    {"url": "/bill/?", "method": "PUT", "description": "Sirve para actualizar una factura"},
+    
+    {"url": "/customer", "method": "GET", "description": "Sirve para listar los clientes"},
+    {"url": "/customer", "method": "POST", "description": "Sirve para crear un nuevo cliente"},
+    {"url": "/customer/?", "method": "GET", "description": "Sirve para obtener un cliente"},
+    {"url": "/customer/?", "method": "DELETE", "description": "Sirve para eliminar un cliente"},
+    {"url": "/customer/?", "method": "PUT", "description": "Sirve para actualizar un cliente"},
+    
+    {"url": "/driver", "method": "GET", "description": "Sirve para listar los conductores"},
+    {"url": "/driver", "method": "POST", "description": "Sirve para crear un nuevo conductor"},
+    {"url": "/driver/?", "method": "GET", "description": "Sirve para obtener un conductor"},
+    {"url": "/driver/?", "method": "DELETE", "description": "Sirve para eliminar un conductor"},
+    {"url": "/driver/?", "method": "PUT", "description": "Sirve para actualizar un conductor"},
+    
+    {"url": "/point", "method": "GET", "description": "Sirve para listar los puntos"},
+    {"url": "/point", "method": "POST", "description": "Sirve para crear un nuevo punto"},
+    {"url": "/point/?", "method": "GET", "description": "Sirve para obtener un punto"},
+    {"url": "/point/?", "method": "DELETE", "description": "Sirve para eliminar un punto"},
+    {"url": "/point/?", "method": "PUT", "description": "Sirve para actualizar un punto"},
+    
+    {"url": "/rating", "method": "GET", "description": "Sirve para listar las calificaciones"},
+    {"url": "/rating", "method": "POST", "description": "Sirve para crear una nueva calificación"},
+    {"url": "/rating/?", "method": "GET", "description": "Sirve para obtener una calificación"},
+    {"url": "/rating/?", "method": "DELETE", "description": "Sirve para eliminar una calificación"},
+    {"url": "/rating/?", "method": "PUT", "description": "Sirve para actualizar una calificación"},
+    
+    {"url": "/route", "method": "GET", "description": "Sirve para listar las rutas"},
+    {"url": "/route", "method": "POST", "description": "Sirve para crear una nueva ruta"},
+    {"url": "/route/?", "method": "GET", "description": "Sirve para obtener una ruta"},
+    {"url": "/route/?", "method": "DELETE", "description": "Sirve para eliminar una ruta"},
+    {"url": "/route/?", "method": "PUT", "description": "Sirve para actualizar una ruta"},
+    
+    {"url": "/trip", "method": "GET", "description": "Sirve para listar los viajes"},
+    {"url": "/trip", "method": "POST", "description": "Sirve para crear un nuevo viaje"},
+    {"url": "/trip/?", "method": "GET", "description": "Sirve para obtener un viaje"},
+    {"url": "/trip/?", "method": "DELETE", "description": "Sirve para eliminar un viaje"},
+    {"url": "/trip/?", "method": "PUT", "description": "Sirve para actualizar un viaje"},
+    
+    {"url": "/vehicle", "method": "GET", "description": "Sirve para listar los vehículos"},
+    {"url": "/vehicle", "method": "POST", "description": "Sirve para crear un nuevo vehículo"},
+    {"url": "/vehicle/?", "method": "GET", "description": "Sirve para obtener un vehículo"},
+    {"url": "/vehicle/?", "method": "DELETE", "description": "Sirve para eliminar un vehículo"},
+    {"url": "/vehicle/?", "method": "PUT", "description": "Sirve para actualizar un vehículo"}
+]
