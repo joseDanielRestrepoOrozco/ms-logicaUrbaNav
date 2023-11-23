@@ -11,7 +11,7 @@ export default class Customer extends BaseModel {
 
   @column()
   public user_id: string
-  
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
@@ -22,7 +22,7 @@ export default class Customer extends BaseModel {
     pivotTable: 'trips',
     pivotForeignKey: 'customer_id',
     pivotRelatedForeignKey: 'driver_id',
-    pivotColumns: ['date','price','status','route']
+    pivotColumns: ['date', 'price', 'status', 'route']
   })
   public drivers: ManyToMany<typeof Driver>
 }

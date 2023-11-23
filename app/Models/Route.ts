@@ -10,12 +10,6 @@ export default class Route extends BaseModel {
   @column()
   public name: string
 
-  @column()
-  public origin: number
-
-  @column()
-  public destination: number
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

@@ -5,10 +5,9 @@ import Env from '@ioc:Adonis/Core/Env'
 
 export default class DriversController {
 
-
     public async get_token(request) {
         let theRequest = request.toJSON()
-        let token
+        let token: string = ''
         if (theRequest.headers.authorization) {
             token = theRequest.headers.authorization.replace("Bearer ", "")
         }
@@ -20,9 +19,9 @@ export default class DriversController {
    * @param {HttpContextContract} request - peticion del usuario
    * @returns {Driver} - el cliente con su id
    */
-    public async CreateOnlyDriver({ request, params }: HttpContextContract) {
+    public async createOnlyDriver({ request, params }: HttpContextContract) {
         let body = request.body()
-        let user = (await axios.get(`${Env.get('MS-SECURITY')}/private/users/${params.id}`)).data
+        let user = (await axios.get(`${Env.get('MS_SECURITY')}/private/users/${params.id}`)).data
         const page = request.input('page', 1)
         const perPage = request.input('per_page', 20)
         let drivers = await Driver.query().paginate(page, perPage)
@@ -32,7 +31,7 @@ export default class DriversController {
                 seguir = false
             }
         });
-        if (user != "" && seguir) {
+        if (user != '' && seguir) {
             return await this.create(body)
         }
         return { response: 404, error: "No se pudo crear el conductor correctamente" };
@@ -44,20 +43,20 @@ export default class DriversController {
      * @returns {Customer} - el cliente con su usuario
      */
     public async create(body) {
-        let result = await axios.post(`${Env.get('MS-SECURITY')}/private/users`, body)
+        let result = await axios.post(`${Env.get('MS_SECURITY')}/private/users`, body)
 
         let bodyCustomer = {
+            user_id: result.data["_id"],
             isAvailable: body["isAvailable"],
             vehicle_id: body["vehicle_id"],
-            point_id: body["point_id"],
-            user_id: result.data["_id"]
+            point_id: body["point_id"]
         }
         let theDriver
         let asignacionRol
         if (result.data != "") {
             theDriver = await Driver.create(bodyCustomer)
             if (theDriver) {
-                asignacionRol = await axios.put(`${Env.get('MS-SECURITY')}/private/users/${bodyCustomer.user_id}/role/6546e9c40c4d084e46c328ee`)
+                asignacionRol = await axios.put(`${Env.get('MS_SECURITY')}/private/users/${bodyCustomer.user_id}/role/6546e9c40c4d084e46c328ee`)
                 console.log(asignacionRol)
                 return { ...theDriver.toJSON(), user: asignacionRol.data };
             }
@@ -75,7 +74,6 @@ export default class DriversController {
   */
     public async store({ request }: HttpContextContract) {
         let body = request.body()
-
         return await this.create(body)
     }
 
@@ -108,9 +106,9 @@ export default class DriversController {
 
         for (let driver of drivers.serialize().data) {
 
-            let user = (await axios.get(`${Env.get('MS-SECURITY')}/private/users/${driver.user_id}`)).data
-            let PaymentMethod = (await axios.get(`${Env.get('MS-SECURITY')}/private/paymentmethod/user/${driver.user_id}`)).data
-            let Pqrs = (await axios.get(`${Env.get('MS-SECURITY')}/private/pqrs/user/${driver.user_id}`)).data
+            let user = (await axios.get(`${Env.get('MS_SECURITY')}/private/users/${driver.user_id}`)).data
+            let PaymentMethod = (await axios.get(`${Env.get('MS_SECURITY')}/private/paymentmethod/user/${driver.user_id}`)).data
+            let Pqrs = (await axios.get(`${Env.get('MS_SECURITY')}/private/pqrs/user/${driver.user_id}`)).data
 
             infoCompleta.push({ ...driver, user, PaymentMethod, Pqrs })
         }
@@ -159,7 +157,7 @@ export default class DriversController {
         const theDriver: Driver = await Driver.findOrFail(params.id)
         theDriver.isAvailable = body.isAvailable
         theDriver.point_id = body.point_id
-        let user = (await axios.put(`${Env.get('MS-SECURITY')}/private/users/${theDriver.user_id}`, body)).data;
+        let user = (await axios.put(`${Env.get('MS_SECURITY')}/private/users/${theDriver.user_id}`, body)).data;
         let driver = await theDriver.save()
         return { ...driver.toJSON(), user };
 
@@ -175,20 +173,20 @@ export default class DriversController {
         try {
             let theDriver: Driver = await Driver.findOrFail(params.id)
             let theDriverSerialze = theDriver.serialize()
-            let payment: Object[] = (await axios.get(`${Env.get('MS-SECURITY')}/private/paymentmethod/user/${theDriverSerialze.user_id}`)).data
+            let payment: Object[] = (await axios.get(`${Env.get('MS_SECURITY')}/private/paymentmethod/user/${theDriverSerialze.user_id}`)).data
             payment.forEach(async pay => {
-                await axios.delete(`${Env.get('MS-SECURITY')}/private/paymentmethod/${pay["_id"]}`);
+                await axios.delete(`${Env.get('MS_SECURITY')}/private/paymentmethod/${pay["_id"]}`);
 
             })
 
 
-            let pqrs: Object[] = (await axios.get(`${Env.get('MS-SECURITY')}/private/pqrs/user/${theDriverSerialze.user_id}`)).data;
+            let pqrs: Object[] = (await axios.get(`${Env.get('MS_SECURITY')}/private/pqrs/user/${theDriverSerialze.user_id}`)).data;
             pqrs.forEach(async pqr => {
-                await axios.delete(`${Env.get('MS-SECURITY')}/private/pqrs/${pqr["_id"]}`)
+                await axios.delete(`${Env.get('MS_SECURITY')}/private/pqrs/${pqr["_id"]}`)
             });
 
             console.log(pqrs, theDriver.user_id)
-            await axios.delete(`${Env.get('MS-SECURITY')}/private/users/${theDriverSerialze.user_id}`)
+            await axios.delete(`${Env.get('MS_SECURITY')}/private/users/${theDriverSerialze.user_id}`)
 
             await theDriver.delete()
             response.status(204)

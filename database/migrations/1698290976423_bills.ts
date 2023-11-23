@@ -1,21 +1,22 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'points'
+  protected tableName = 'bills'
 
   /**
    * Metodo encargado de crear la tabla en MySQL
    */
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
-
-      table.string('name', 50).notNullable()
-      table.float('latitude', 18, 15).notNullable()
-      table.float('longitude', 18, 15).notNullable()
-
-      table.timestamp('created_at').defaultTo(this.raw('CURRENT_TIMESTAMP'))
-      table.timestamp('updated_at').defaultTo(this.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
+      
+      table.increments('id').notNullable()
+      table.integer('price').notNullable()
+      table.date('date').notNullable()
+      
+      table.integer('trip_id').unsigned().references('trips.id')
+      
+      table.timestamp('created_at', { useTz: true })
+      table.timestamp('updated_at', { useTz: true })
     })
   }
 

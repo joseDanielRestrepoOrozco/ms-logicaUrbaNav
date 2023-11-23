@@ -40,7 +40,7 @@ export default class PointsController {
     * @returns {Rating} - un punto
     */
     public async show({ params }: HttpContextContract) {
-        return Point.findOrFail(params.id);
+        return Point.query().where('id', params.id).preload('routes').firstOrFail();
     }
 
 

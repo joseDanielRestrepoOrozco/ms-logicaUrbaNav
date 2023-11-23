@@ -7,10 +7,10 @@ export default class Driver extends BaseModel {
   public id: number
 
   @column()
-  public isAvailable: boolean
+  public user_id: string
 
   @column()
-  public user_id: string
+  public isAvailable: boolean
 
   @column()
   public vehicle_id: number
@@ -28,7 +28,7 @@ export default class Driver extends BaseModel {
     pivotTable: 'trips',
     pivotForeignKey: 'driver_id',
     pivotRelatedForeignKey: 'customer_id',
-    pivotColumns: ['date','price','status','route']
+    pivotColumns: ['date', 'price', 'status', 'route']
   })
   public customers: ManyToMany<typeof Customer>
 }

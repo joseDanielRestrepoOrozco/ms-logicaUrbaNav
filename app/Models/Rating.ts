@@ -7,10 +7,10 @@ export default class Rating extends BaseModel {
   public id: number
 
   @column()
-  public stars:number
+  public stars: number
 
   @column()
-  public comment:String
+  public comment: String
 
   @column()
   public date: DateTime
