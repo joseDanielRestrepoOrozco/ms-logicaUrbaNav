@@ -11,7 +11,7 @@ export default class Customer extends BaseModel {
 
   @column()
   public user_id: string
-  
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

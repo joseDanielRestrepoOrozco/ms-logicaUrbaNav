@@ -12,9 +12,9 @@ export default class Driver extends BaseModel {
   @column()
   public user_id: string
 
-  /**
-   * columnas de foreing key de vehiculo y puntos
-   */
+  @column()
+  public isAvailable: boolean
+
   @column()
   public vehicle_id: number
 
@@ -29,7 +29,7 @@ export default class Driver extends BaseModel {
     pivotTable: 'trips',
     pivotForeignKey: 'driver_id',
     pivotRelatedForeignKey: 'customer_id',
-    pivotColumns: ['date','price','status','route_id']
+    pivotColumns: ['date', 'price', 'status', 'route_id']
   })
   public customers: ManyToMany<typeof Customer>
 }

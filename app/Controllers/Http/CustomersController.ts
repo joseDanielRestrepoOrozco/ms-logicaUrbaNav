@@ -5,10 +5,9 @@ import axios from 'axios'
 
 export default class CustomersController {
 
-    
-    public async get_token(request){
+    public async get_token(request) {
         let theRequest = request.toJSON()
-        let token = ""
+        let token: string = ''
         if (theRequest.headers.authorization) {
             token = theRequest.headers.authorization.replace("Bearer ", "")
         }
@@ -20,7 +19,7 @@ export default class CustomersController {
     * @param {HttpContextContract} request - peticion del usuario
     * @returns {Customer} - el cliente con su id
     */
-    public async CreateOnlyCustomer({ request, params}: HttpContextContract) {
+    public async createOnlyCustomer({ request, params }: HttpContextContract) {
         let body = request.body()
         let token = await this.get_token(request)
         let user = (await axios.get(`${Env.get('MS-SECURITY')}/private/users/${params.id}`,{
@@ -33,7 +32,7 @@ export default class CustomersController {
         let customers = await Customer.query().paginate(page, perPage)
         let seguir = true
         customers.serialize().data.forEach(customer => {
-            if(customer.user_id === params.id){
+            if (customer.user_id === params.id) {
                 seguir = false
             }
         });
@@ -56,15 +55,15 @@ export default class CustomersController {
           })
 
         let bodyCustomer = {
-            contactEmergency: body["contactEmergency"],
-            user_id: result.data["_id"]
+            user_id: result.data["_id"],
+            contactEmergency: body["contactEmergency"]
         }
         let theCustomer
         let asignacionRol
         if (result.data != "") {
             theCustomer = await Customer.create(bodyCustomer)
             if (theCustomer) {
-                asignacionRol = await axios.put(`${Env.get('MS-SECURITY')}/private/users/${bodyCustomer.user_id}/role/6539c4950ffeb14602a8d947`,{
+                asignacionRol = await axios.put(`${Env.get('MS-SECURITY')}/private/users/${bodyCustomer.user_id}/role/6539c4950ffeb14602a8d947`,{},{
                     headers: {
                       Authorization: `Bearer ${token}`
                     }
@@ -73,7 +72,7 @@ export default class CustomersController {
                 return { ...theCustomer.toJSON(), user: asignacionRol.data };
             }
         }
-        return { response: 404, error:"No se pudo crear el usuario correctamente"};
+        return { response: 404, error: "No se pudo crear el usuario correctamente" };
     }
 
 

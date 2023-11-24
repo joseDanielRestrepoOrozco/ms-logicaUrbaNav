@@ -28,8 +28,6 @@ export default class PointsController {
         return array
     }
 
-    
-
     /**
      * Lista todas los puntos con paginadores
      * @param {HttpContextContract} request - peticion del usuario
@@ -48,7 +46,7 @@ export default class PointsController {
     * @returns {Rating} - un punto
     */
     public async show({ params }: HttpContextContract) {
-        return Point.findOrFail(params.id);
+        return Point.query().where('id', params.id).preload('routes').firstOrFail();
     }
 
 
@@ -58,12 +56,12 @@ export default class PointsController {
      * @param {HttpContextContract} request - peticion del usuario
      * @returns {Point} - lo que devuelve la solicitud de guardado de un punto
      */
-    public async update({params, request}: HttpContextContract) {
+    public async update({ params, request }: HttpContextContract) {
         const body = request.body();
-        const thePoint:Point = await Point.findOrFail(params.id);
+        const thePoint: Point = await Point.findOrFail(params.id);
         thePoint.name = body.name;
         thePoint.latitude = body.latitude;
-        thePoint.logitude = body.longitude;
+        thePoint.longitude = body.longitude;
         return thePoint.save()
     }
 
@@ -74,10 +72,10 @@ export default class PointsController {
      * @param {HttpContextContract} response - respuesta para el usuario
      * @returns {Point} - lo que devuelve la solicitud de eliminacion
      */
-        public async destroy({params, response}: HttpContextContract) {
-            let thePoint:Point = await Point.findOrFail(params.id);
-            response.status(204)
-            return thePoint.delete()
-        }
+    public async destroy({ params, response }: HttpContextContract) {
+        let thePoint: Point = await Point.findOrFail(params.id);
+        response.status(204)
+        return thePoint.delete()
+    }
 
 }

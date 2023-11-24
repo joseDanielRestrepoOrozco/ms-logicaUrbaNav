@@ -13,11 +13,9 @@ export default class Security {
       url: theRequest.url,
       method: theRequest.method
     }
-    console.log("Esto se envia: ",data)
     try {
       // llamo al endpoint que está en el ms-security
       // a esta peticion tengo que ponerle tambien un token porque se debe autenticar (con bearer token)
-      
       const result = await axios.post(`${Env.get('MS-SECURITY')}/api/public/security/permissions-validation`, data,
         {
           headers: {
@@ -43,4 +41,4 @@ export default class Security {
       response.status(401)
     }
   }
-}
+  }

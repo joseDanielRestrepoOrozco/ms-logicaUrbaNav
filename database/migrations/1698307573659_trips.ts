@@ -3,12 +3,12 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class extends BaseSchema {
   protected tableName = 'trips'
 
+
   /**
    * Metodo encargado de crear la tabla en MySQL
    */
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      
       table.increments('id')
       table.timestamp('date', { useTz: true })
       table.integer('price').notNullable()
@@ -22,8 +22,8 @@ export default class extends BaseSchema {
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
-      table.timestamp('created_at').defaultTo(this.raw('CURRENT_TIMESTAMP'))
-      table.timestamp('updated_at').defaultTo(this.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))  
+      table.timestamp('created_at', { useTz: true })
+      table.timestamp('updated_at', { useTz: true })
     })
   }
 
@@ -36,4 +36,3 @@ export default class extends BaseSchema {
     this.schema.dropTable(this.tableName)
   }
 }
-

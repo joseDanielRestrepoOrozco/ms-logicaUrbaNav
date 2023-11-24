@@ -42,7 +42,7 @@ export default class TripsController {
     * @returns {Trip} - un viaje
     */
     public async show({ params }: HttpContextContract) {
-        return Trip.query().where("id",params.id).preload("bill")
+        return Trip.query().where("id", params.id).preload("bill")
     }
 
     /**

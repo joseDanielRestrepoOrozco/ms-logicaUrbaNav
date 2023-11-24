@@ -7,28 +7,28 @@ export default class Vehicle extends BaseModel {
   public id: number
 
   @column()
-  public brand:string
+  public brand: string
 
   @column()
-  public model:string
+  public model: string
 
   @column()
-  public year:Date
+  public year: Date
 
   @column()
-  public color:string
+  public color: string
 
   @column()
-  public plate:string
+  public plate: string
 
   @column()
-  public passenger_capacity:number
+  public passenger_capacity: number
 
   @column()
-  public property_card:string
+  public property_card: string
 
   @column()
-  public soat:string
+  public soat: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -36,4 +36,8 @@ export default class Vehicle extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  @hasOne(() => Driver, {
+    foreignKey: 'vehicle_id',
+  })
+  public driver: HasOne<typeof Driver>
 }

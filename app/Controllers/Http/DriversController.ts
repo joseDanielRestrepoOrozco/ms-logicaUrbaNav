@@ -5,10 +5,9 @@ import Env from '@ioc:Adonis/Core/Env'
 
 export default class DriversController {
 
-
     public async get_token(request) {
         let theRequest = request.toJSON()
-        let token
+        let token: string = ''
         if (theRequest.headers.authorization) {
             token = theRequest.headers.authorization.replace("Bearer ", "")
         }
@@ -33,7 +32,7 @@ export default class DriversController {
         let drivers = await Driver.query().paginate(page, perPage)
         let seguir = true
         drivers.serialize().data.forEach(driver => {
-            if(driver.user_id === params.id){
+            if (driver.user_id === params.id) {
                 seguir = false
             }
         });

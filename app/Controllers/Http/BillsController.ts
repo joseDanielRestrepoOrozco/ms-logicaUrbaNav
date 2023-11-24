@@ -51,12 +51,12 @@ export default class BillsController {
      * @param {HttpContextContract} request - peticion del usuario
      * @returns {Bill} - lo que devuelve la solicitud de guardado de una factura
      */
-    public async update({params, request}: HttpContextContract) {
+    public async update({ params, request }: HttpContextContract) {
         const body = request.body();
-        const theBill:Bill = await Bill.findOrFail(params.id);
+        const theBill: Bill = await Bill.findOrFail(params.id);
         theBill.price = body.price;
         theBill.date = body.date;
-        //theBill.trip = body.trip;
+        theBill.trip_id = body.trip_id;
         return theBill.save()
     }
 
@@ -66,13 +66,13 @@ export default class BillsController {
      * @param {HttpContextContract} response - respuesta para el usuario
      * @returns {Bill} - lo que devuelve la solicitud de eliminacion
      */
-    public async destroy({params, response}: HttpContextContract) {
-        let theBill:Bill = await Bill.findOrFail(params.id);
+    public async destroy({ params, response }: HttpContextContract) {
+        let theBill: Bill = await Bill.findOrFail(params.id);
         response.status(204)
         return theBill.delete()
     }
 
 
-    
+
 
 }
