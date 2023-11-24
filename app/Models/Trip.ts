@@ -1,12 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, HasOne, column, hasOne, } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, HasMany, HasOne, belongsTo, column, hasMany, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import Route from './Route'
+import Rating from './Rating'
 import Bill from './Bill'
 
 export default class Trip extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column.dateTime({ autoCreate: true })
+  @column()
   public date: DateTime
 
   @column()
@@ -15,9 +17,6 @@ export default class Trip extends BaseModel {
   @column()
   public status: boolean
 
-  /**
-   * columna de foreing key de ruta
-   */
   @column()
   public route_id: number
 
@@ -33,11 +32,17 @@ export default class Trip extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  @belongsTo(() => Route)
+  public route: BelongsTo<typeof Route>
 
-    @hasOne(() => Bill,{
-      foreignKey: 'trip_id',
-    })
-    public bill: HasOne<typeof Bill>
+  @hasOne(() => Bill, {
+    foreignKey: 'trip_id',
+  })
+  public bill: HasOne<typeof Bill>
 
-    
+  @hasMany(() => Rating, {
+    foreignKey: 'trip_id',
+  })
+  public ratings: HasMany<typeof Rating>
+
 }

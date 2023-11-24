@@ -8,7 +8,7 @@ export default class TripsController {
      * @returns {Trip} - el viaje con su id
      */
     public async store({ request }: HttpContextContract) {
-        let body = request.body();
+        let body = JSON.parse(request.body());
         console.log(body)
         const theTrip = await Trip.create(body);
         return theTrip
@@ -16,7 +16,7 @@ export default class TripsController {
 
 
     public async storeList({ request }: HttpContextContract) {
-        let body = request.body();
+        let body = JSON.parse(request.body());
         console.log(body)
         body.forEach(async trips => {
          const theTrip = await Trip.create(trips);
