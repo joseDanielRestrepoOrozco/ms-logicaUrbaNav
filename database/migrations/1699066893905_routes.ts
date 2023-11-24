@@ -8,9 +8,6 @@ export default class extends BaseSchema {
 
       table.increments('id')
       table.string('name', 50).notNullable()
-      // foreign keys
-      // table.integer('origin').unsigned().references('points.id')
-      // table.integer('destination').unsigned().references('points.id')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

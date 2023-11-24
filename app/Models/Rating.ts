@@ -13,7 +13,7 @@ export default class Rating extends BaseModel {
   public comment: String
 
   @column()
-  public date: DateTime
+  public date_Time: DateTime
 
   @column()
   public trip_id: number

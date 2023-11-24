@@ -1,0 +1,52 @@
+
+[
+        {
+            "url": "/private/paymentmethod", 
+            "methods": ["GET_1","PUT","DELETE"]
+        },
+        {
+            "url": "/private/paymentmethod/user",  
+            "methods": ["GET_1"]
+        },
+        {
+            "url": "/private/pqrs",
+            "methods": ["GET_1", "PUT","DELETE"]
+        },
+        {
+            "url": "/private/pqrs/user",    
+            "methods": ["GET_1"]
+        },
+        {
+            "url": "/private/users",
+            "methods": ["GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/private/users/?/role", 
+            "methods": ["PUT"]
+        },
+        {
+            "url": "/bill",
+            "methods": ["GET_1", "POST"]
+        },
+        {
+            "url": "/customer",
+            "methods": ["GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/driver",
+            "methods": ["GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/rating",
+            "methods": ["GET", "GET_1", "DELETE", "PUT", "POST"]
+        },
+        {
+            "url": "/trip",
+            "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
+        },
+        {
+            "url": "/vehicle",
+            "methods": ["GET_1", "GET", "DELETE", "POST", "PUT"]
+        } 
+
+]

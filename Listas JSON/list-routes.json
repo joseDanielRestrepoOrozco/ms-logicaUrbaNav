@@ -1,0 +1,37 @@
+[
+    {
+        "name": "Palogrande - Yarumos",
+        "origin": 2,
+        "destination": 1
+    },
+    {
+        "name": "U Nacional - Parque Caldas",
+        "origin": 3,
+        "destination": 4
+    },
+    {
+        "name": "Monumentos - Ecoparque Alcazares",
+        "origin": 5,
+        "destination": 6
+    },
+    {
+        "name": "Mall Plaza - La Nubia",
+        "origin": 7,
+        "destination": 8
+    },
+    {
+        "name": "La Nubia - Mall Plaza",
+        "origin": 8,
+        "destination": 7
+    },
+    {
+        "name": "Ecoparque Alcazares - Monumentos",
+        "origin": 6,
+        "destination": 5
+    },
+    {
+        "name": "Parque Caldas - U Nacional",
+        "origin": 2,
+        "destination": 1
+    }
+]

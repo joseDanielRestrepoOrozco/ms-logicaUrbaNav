@@ -1,0 +1,43 @@
+[
+    {
+        "brand": "Ford",
+        "model": "F-150",
+        "year": "2019-10-12",
+        "color": "Blue",
+        "plate": "DEF456",
+        "passenger_capacity": 4,
+        "property_card": "DEF456789",
+        "soat": "LMN012"
+    },
+    {
+        "brand": "Honda",
+        "model": "Civic",
+        "year": "2022-09-17",
+        "color": "Red",
+        "plate": "GHI789",
+        "passenger_capacity": 4,
+        "property_card": "GHI789012",
+        "soat": "OPQ345"
+    },
+    {
+        "brand": "Chevrolet",
+        "model": "Equinox",
+        "year": "2018-01-25",
+        "color": "Black",
+        "plate": "JKL456",
+        "passenger_capacity": 4,
+        "property_card": "JKL456789",
+        "soat": "RST678"
+    },
+    {
+        "brand": "Toyota",
+        "model": "Camry",
+        "year": "2020-07-11",
+        "color": "Silver",
+        "plate": "ABC123",
+        "passenger_capacity": 4,
+        "property_card": "ABC123456",
+        "soat": "XYZ789"
+    }
+                
+]

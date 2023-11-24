@@ -7,16 +7,17 @@ export default class Driver extends BaseModel {
   public id: number
 
   @column()
-  public user_id: string
+  public is_available: boolean
 
   @column()
-  public isAvailable: boolean
+  public user_id: string
 
+  /**
+   * columnas de foreing key de vehiculo y puntos
+   */
   @column()
   public vehicle_id: number
 
-  @column()
-  public point_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -28,7 +29,7 @@ export default class Driver extends BaseModel {
     pivotTable: 'trips',
     pivotForeignKey: 'driver_id',
     pivotRelatedForeignKey: 'customer_id',
-    pivotColumns: ['date', 'price', 'status', 'route']
+    pivotColumns: ['date', 'price', 'status', 'route_id']
   })
   public customers: ManyToMany<typeof Customer>
 }
