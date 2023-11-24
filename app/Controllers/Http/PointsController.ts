@@ -9,7 +9,7 @@ export default class PointsController {
      * @returns {Point} - Punto con su id
      */
     public async store({ request }: HttpContextContract) {
-        let body = request.body();
+        let body = JSON.parse(request.body());
         const thePoint = await Point.create(body);
         return thePoint
     }
@@ -19,11 +19,13 @@ export default class PointsController {
 
     public async storeList({ request }: HttpContextContract) {
         let body = request.body();
+        console.log(body)
         let array:Point[] = []
         body.forEach(async point => {
             const thePoint = await Point.create(point);
+
             array.push(thePoint)
-            console.log(point,thePoint)
+            console.log(thePoint)
         });
         return array
     }
@@ -57,7 +59,7 @@ export default class PointsController {
      * @returns {Point} - lo que devuelve la solicitud de guardado de un punto
      */
     public async update({ params, request }: HttpContextContract) {
-        const body = request.body();
+        let body = JSON.parse(request.body());
         const thePoint: Point = await Point.findOrFail(params.id);
         thePoint.name = body.name;
         thePoint.latitude = body.latitude;

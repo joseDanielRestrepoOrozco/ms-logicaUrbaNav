@@ -64,7 +64,7 @@ export default class DriversController {
         if (result.data != "") {
             theDriver = await Driver.create(bodyCustomer)
             if (theDriver) {
-                asignacionRol = await axios.put(`${Env.get('MS-SECURITY')}/private/users/${bodyCustomer.user_id}/role/6539c4ab0ffeb14602a8d948`,{
+                asignacionRol = await axios.put(`${Env.get('MS-SECURITY')}/private/users/${bodyCustomer.user_id}/role/6539c4ab0ffeb14602a8d948`,{},{
                     headers: {
                       Authorization: `Bearer ${token}`
                     }

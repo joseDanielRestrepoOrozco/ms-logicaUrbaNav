@@ -54,7 +54,7 @@ export default class RatingsController {
      * @returns {Rating} - lo que devuelve la solicitud de guardado de factura
      */
     public async update({ params, request }: HttpContextContract) { // descomposicion del objeto
-        const body = request.body();
+        let body = JSON.parse(request.body());
         const theRating: Rating = await Rating.findOrFail(params.id);
         theRating.stars = body.stars;
         theRating.comment = body.comment;

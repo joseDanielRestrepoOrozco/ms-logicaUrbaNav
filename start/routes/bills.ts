@@ -11,4 +11,4 @@ Route.group(() => {
     Route.put("/bill/:id","BillsController.update");
     Route.delete("/bill/:id","BillsController.destroy");
 }
-).middleware(['security'])
+)//.middleware(['security'])

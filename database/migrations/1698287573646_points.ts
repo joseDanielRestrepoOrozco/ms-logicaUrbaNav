@@ -14,8 +14,8 @@ export default class extends BaseSchema {
       table.float('latitude', 18, 15).notNullable()
       table.float('longitude', 18, 15).notNullable()
 
-      table.timestamp('created_at').defaultTo(this.raw('CURRENT_TIMESTAMP'))
-      table.timestamp('updated_at').defaultTo(this.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
+      table.timestamp('created_at', { useTz: true })
+      table.timestamp('updated_at', { useTz: true })
     })
   }
 

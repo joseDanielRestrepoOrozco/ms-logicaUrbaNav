@@ -45,13 +45,13 @@ export default class Vehicle extends BaseModel {
 
 
 /*
-Customer ---
-routes --
-points  -- 
-points_routes  ---
-vehicles   ---
-drivers    ---
-trips      ---
+Customer ----
+vehicles ----
+routes   
+points  
+points_routes  
+drivers    
+trips      
 bill
 ratings
 */

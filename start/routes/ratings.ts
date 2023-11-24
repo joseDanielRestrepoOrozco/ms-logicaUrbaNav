@@ -10,4 +10,4 @@ Route.group(() => {
     Route.get("/rating/:id","RatingsController.show");
     Route.put("/rating/:id","RatingsController.update");
     Route.delete("/rating/:id","RatingsController.destroy");
-}).middleware(['security'])
+})//.middleware(['security'])

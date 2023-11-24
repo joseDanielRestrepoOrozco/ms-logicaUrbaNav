@@ -16,7 +16,7 @@ export default class TripsController {
 
 
     public async storeList({ request }: HttpContextContract) {
-        let body = JSON.parse(request.body());
+        let body = request.body();
         console.log(body)
         body.forEach(async trips => {
          const theTrip = await Trip.create(trips);
@@ -52,7 +52,7 @@ export default class TripsController {
      * @returns hace efectivo el cambio en la base de datos
      */
     public async update({ params, request }: HttpContextContract) {
-        const body = request.body()
+        let body = JSON.parse(request.body());
         const theTrip: Trip = await Trip.findOrFail(params.id)
         theTrip.date = body.date
         theTrip.price = body.price

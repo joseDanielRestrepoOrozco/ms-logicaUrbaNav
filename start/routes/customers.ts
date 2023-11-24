@@ -11,4 +11,4 @@ Route.group(() => {
     Route.get("/customer/:id","CustomersController.show");
     Route.put("/customer/:id","CustomersController.update");
     Route.delete("/customer/:id","CustomersController.destroy");
-}).middleware(['security'])
+})//.middleware(['security'])

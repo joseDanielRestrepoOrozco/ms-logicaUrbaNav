@@ -16,8 +16,8 @@ export default class extends BaseSchema {
       table.dateTime('date_Time')
       table.integer('trip_id').unsigned().references('trips.id').onDelete('CASCADE')
 
-      table.timestamp('created_at').defaultTo(this.raw('CURRENT_TIMESTAMP'))
-      table.timestamp('updated_at').defaultTo(this.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))  
+      table.timestamp('created_at', { useTz: true })
+      table.timestamp('updated_at', { useTz: true })  
     })
   }
 
