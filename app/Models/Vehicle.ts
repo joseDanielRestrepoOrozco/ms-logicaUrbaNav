@@ -41,3 +41,17 @@ export default class Vehicle extends BaseModel {
   })
   public driver: HasOne<typeof Driver>
 }
+
+
+
+/*
+Customer ---
+routes --
+points  -- 
+points_routes  ---
+vehicles   ---
+drivers    ---
+trips      ---
+bill
+ratings
+*/

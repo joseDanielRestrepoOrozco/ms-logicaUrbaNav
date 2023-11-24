@@ -28,7 +28,6 @@ import "./routes/drivers"
 import "./routes/trips"
 import "./routes/vehicles"
 import "./routes/routes"
-import "./routes/routes"
 import "./routes/pointsroute"
 
 Route.get('/', async () => {
