@@ -9,9 +9,17 @@ export default class TripsController {
    */
   public async store({ request }: HttpContextContract) {
     let body = request.body();
-    console.log(body)
-    const theTrip = await Trip.create(body);
-    return theTrip
+    // let body = JSON.parse(request.body());
+
+    if (Array.isArray(body)) {
+      body.forEach(async (trip) => {
+        const theTrip = await Trip.create(trip);
+        return theTrip;
+      });
+    } else {
+      const theTrip = await Trip.create(body);
+      return theTrip;
+    }
   }
 
   /**

@@ -5,7 +5,6 @@ import Route from '@ioc:Adonis/Core/Route'
  */
 Route.group(() => {
     Route.post("/ratings","RatingsController.store");
-    Route.post("/rating/list","RatingsController.storeList");
     Route.get("/ratings","RatingsController.index");
     Route.get("/ratings/:id","RatingsController.show");
     Route.put("/ratings/:id","RatingsController.update");

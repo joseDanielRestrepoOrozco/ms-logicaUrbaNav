@@ -226,11 +226,19 @@ export default class DriversController {
         }
       })).data
       pqrs.forEach(async pqr => {
-        await axios.delete(`${Env.get('MS_SECURITY')}/private/pqrs/${pqr["_id"]}`)
+        await axios.delete(`${Env.get('MS_SECURITY')}/private/pqrs/${pqr["_id"]}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
       });
 
       console.log(pqrs, theDriver.user_id)
-      await axios.delete(`${Env.get('MS_SECURITY')}/private/users/${theDriverSerialze.user_id}`)
+      await axios.delete(`${Env.get('MS_SECURITY')}/private/users/${theDriverSerialze.user_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
 
       await theDriver.delete()
       response.status(204)

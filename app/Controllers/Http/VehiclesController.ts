@@ -26,7 +26,6 @@ export default class VehiclesController {
     return array
   }
 
-
   //listar 
   public async index({ request }: HttpContextContract) {
     const page = request.input('page', 1);

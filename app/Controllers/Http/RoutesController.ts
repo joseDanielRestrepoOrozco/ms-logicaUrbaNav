@@ -8,9 +8,18 @@ export default class RoutesController {
    * @returns {Promise<Route>} Devuelve el registro recién creado, como respuesta a la solicitud HTTP
    */
   public async store({ request }: HttpContextContract) {
-    let body = request.body()
-    const theRoute = await Route.create(body)
-    return theRoute
+    let body = request.body();
+    // let body = JSON.parse(request.body());
+
+    if (Array.isArray(body)) {
+      body.forEach(async (route) => {
+        const theRoute = await Route.create(route);
+        return theRoute;
+      });
+    } else {
+      const theRoute = await Route.create(body);
+      return theRoute;
+    }
   }
 
   /**
@@ -55,8 +64,6 @@ export default class RoutesController {
     const body = request.body()
     const theRoute: Route = await Route.findOrFail(params.id)
     theRoute.name = body.name
-    // theRoute.origin = body.origin
-    // theRoute.destination = body.destination
     return theRoute.save()
 
   }

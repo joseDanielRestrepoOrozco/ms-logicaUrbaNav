@@ -1,24 +1,22 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'ratings'
+  protected tableName = 'customers'
 
 
   /**
    * Metodo encargado de crear la tabla en MySQL
    */
-  public async up() {
+  public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-
-      table.integer('stars').notNullable()
-      table.string('comment').nullable()
-      table.dateTime('date').notNullable()
-      
-      table.integer('trip_id').unsigned().references('trips.id').onDelete('CASCADE')
-
+      table.string('contact_emergency', 60).notNullable()
+      table.string('user_id').notNullable()
+      /**
+       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
+       */
       table.timestamp('created_at', { useTz: true })
-      table.timestamp('updated_at', { useTz: true })  
+      table.timestamp('updated_at', { useTz: true })
     })
   }
 
@@ -26,7 +24,7 @@ export default class extends BaseSchema {
    *  Metodo para deshacer los cambios realizados en la base de datos 
    * en una migración específica.
    */
-  public async down() {
+  public async down () {
     this.schema.dropTable(this.tableName)
   }
 }

@@ -10,10 +10,10 @@ export default class Rating extends BaseModel {
   public stars: number
 
   @column()
-  public comment: String
+  public comment: string
 
   @column()
-  public date_Time: DateTime
+  public date: DateTime
 
   @column()
   public trip_id: number

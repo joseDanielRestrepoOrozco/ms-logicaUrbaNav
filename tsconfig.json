@@ -2,7 +2,7 @@
   "extends": "adonis-preset-ts/tsconfig.json",
   "include": [
     "**/*"
-, "../ms-securityUrbaNav/migrations"  ],
+, "../MS_SECURITYUrbaNav/migrations"  ],
   "exclude": [
     "node_modules",
     "build"

@@ -10,8 +10,17 @@ export default class RatingsController {
    */
   public async store({ request }: HttpContextContract) {
     let body = request.body();
-    const theRating = await Rating.create(body);
-    return theRating
+    // let body = JSON.parse(request.body());
+
+    if (Array.isArray(body)) {
+      body.forEach(async (rating) => {
+        const theRating = await Rating.create(rating);
+        return theRating;
+      });
+    } else {
+      const theRating = await Rating.create(body);
+      return theRating;
+    }
   }
 
   /**
@@ -47,8 +56,8 @@ export default class RatingsController {
     const theRating: Rating = await Rating.findOrFail(params.id);
     theRating.stars = body.stars;
     theRating.comment = body.comment;
-    theRating.date_Time = body.date_Time;
-    // theRating.trip = body.trip;
+    theRating.date = body.date;
+    theRating.trip_id = body.trip_id;
     return theRating.save()
   }
 

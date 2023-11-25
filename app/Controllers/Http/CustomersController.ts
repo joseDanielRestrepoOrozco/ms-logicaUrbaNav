@@ -197,23 +197,46 @@ export default class CustomersController {
    * @param {HttpContextContract} response - respuesta para el usuario
    * @returns {Customer} - lo que devuelve la solicitud de eliminacion
    */
-  public async destroy({ params, response }: HttpContextContract) {
+  public async destroy({ params, response, request }: HttpContextContract) {
     try {
+      let token = await this.get_token(request)
       let theCustomer: Customer = await Customer.findOrFail(params.id)
       let theCustomerSerialze = theCustomer.serialize()
-      let payment: Object[] = (await axios.get(`${Env.get('MS_SECURITY')}/private/paymentmethod/user/${theCustomerSerialze.user_id}`)).data
+      let payment: Object[] = (await axios.get(`${Env.get('MS_SECURITY')}/private/paymentmethod/user/${theCustomerSerialze.user_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })).data
       payment.forEach(async pay => {
-        await axios.delete(`${Env.get('MS_SECURITY')}/private/paymentmethod/${pay["_id"]}`);
+        await axios.delete(`${Env.get('MS_SECURITY')}/private/paymentmethod/${pay["_id"]}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
 
       })
 
-      let pqrs: Object[] = (await axios.get(`${Env.get('MS_SECURITY')}/private/pqrs/user/${theCustomerSerialze.user_id}`)).data;
+
+      let pqrs: Object[] = (await axios.get(`${Env.get('MS_SECURITY')}/private/pqrs/user/${theCustomerSerialze.user_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })).data
+
       pqrs.forEach(async pqr => {
-        await axios.delete(`${Env.get('MS_SECURITY')}/private/pqrs/${pqr["_id"]}`)
+        await axios.delete(`${Env.get('MS_SECURITY')}/private/pqrs/${pqr["_id"]}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
       });
 
       console.log(pqrs, theCustomer.user_id)
-      await axios.delete(`${Env.get('MS_SECURITY')}/private/users/${theCustomerSerialze.user_id}`)
+      await axios.delete(`${Env.get('MS_SECURITY')}/private/users/${theCustomerSerialze.user_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
 
       await theCustomer.delete()
       response.status(204)

@@ -3,13 +3,6 @@ import Point from 'App/Models/Point';
 
 export default class PointsController {
 
-
-  public async store1({ request }: HttpContextContract) {
-    let body = request.body();
-    const thePoint = await Point.create(body);
-    return thePoint
-  }
-
   /**
    * Almacena la informacion de uno o varios puntos
    * @param {HttpContextContract} request - peticion del usuario
@@ -17,6 +10,7 @@ export default class PointsController {
    */
   public async store({ request }: HttpContextContract) {
     let body = request.body();
+    // let body = JSON.parse(request.body());
 
     if (Array.isArray(body)) {
       body.forEach(async (point) => {

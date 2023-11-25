@@ -4,9 +4,18 @@ import PointsRoute from 'App/Models/PointsRoute'
 export default class PointsRoutesController {
 
   public async store({ request }: HttpContextContract) {
-    let body = request.body()
-    const thePR = await PointsRoute.create(body)
-    return thePR
+    let body = request.body();
+    // let body = JSON.parse(request.body());
+
+    if (Array.isArray(body)) {
+      body.forEach(async (pr) => {
+        const thePR = await PointsRoute.create(pr);
+        return thePR;
+      });
+    } else {
+      const thePR = await PointsRoute.create(body);
+      return thePR;
+    }
   }
 
   public async index({ request }: HttpContextContract) {

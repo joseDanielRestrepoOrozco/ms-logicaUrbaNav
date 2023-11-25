@@ -8,7 +8,7 @@ export default class Trip extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column.dateTime({ autoCreate: true })
+  @column()
   public date: DateTime
 
   @column()
