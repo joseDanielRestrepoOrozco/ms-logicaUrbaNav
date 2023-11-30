@@ -69,4 +69,30 @@ export default class TripsController {
     response.status(204)
     return theTrip.delete()
   }
+
+  /**
+ * obtener los viajes segun el id del conductor
+ * @param param0 
+ * @returns 
+ */
+  public async indexByDriver({request}: HttpContextContract) {
+    const page = request.input('page', 1);
+    const perPage = request.input('per_page', 20);
+    const driver_id = request.input("driver_id")
+    let trips:Trip[] = await Trip.query().where("driver_id", driver_id).paginate(page, perPage);
+    return trips;
+  }
+
+  /**
+ * obtener los viajes segun el id del cliente
+ * @param param0 
+ * @returns 
+ */
+  public async indexByCustomer({request}: HttpContextContract) {
+    const page = request.input('page', 1);
+    const perPage = request.input('per_page', 20);
+    const customer_id = request.input("customer_id")
+    let trips:Trip[] = await Trip.query().where("customer_id", customer_id).paginate(page, perPage);
+    return trips;
+  }
 }
