@@ -12,9 +12,9 @@ export default class Driver extends BaseModel {
   @column()
   public user_id: string
 
-  @column()
-  public isAvailable: boolean
-
+  /**
+   * columnas de foreing key de vehiculo y puntos
+   */
   @column()
   public vehicle_id: number
 

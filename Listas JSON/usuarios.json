@@ -1,0 +1,44 @@
+{
+    "_id": "6571e3712203a54f3c7347b5",
+    "name": "Juan",
+    "surname": "Montes",
+    "phone": "3072070400",
+    "email": "liceth10260@gmail.com",
+    "birthdate": "2005-12-01",
+    "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    "role": {
+        "_id": "6546e9c40c4d084e46c328ee",
+        "name": "CONDUCTOR",
+        "description": "rol de conductor"
+    }
+},
+
+{
+    "_id": "65714b91f2020b54eec2cf5f",
+    "name": "Liceth1",
+    "surname": "Usma2",
+    "phone": "3072074400",
+    "email": "liceth5260@gmail.com",
+    "birthdate": "2005-12-01",
+    "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    "role": {
+        "_id": "6546e9c40c4d084e46c328ee",
+        "name": "CONDUCTOR",
+        "description": "rol de conductor"
+    }
+}
+
+{
+    "_id": "654cd76a409e0760baa04b35",
+    "name": "David",
+    "surname": "López",
+    "phone": "9999999999",
+    "email": "david@gmail.com",
+    "birthdate": "2002-06-08",
+    "password": "password123",
+    "role": {
+        "_id": "6546e9750c4d084e46c328ed",
+        "name": "CLIENTE",
+        "description": "rol de cliente"
+    }
+},

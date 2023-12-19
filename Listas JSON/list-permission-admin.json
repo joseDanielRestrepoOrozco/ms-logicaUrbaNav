@@ -36,35 +36,35 @@
             "methods": ["PUT"]
         },
         {
-            "url": "/bill",
+            "url": "/bills",
             "methods": ["GET", "GET_1"]
         },
         {
-            "url": "/customer",
+            "url": "/customers",
             "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
         },
         {
-            "url": "/driver",
+            "url": "/drivers",
             "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
         },
         {
-            "url": "/point",
+            "url": "/points",
             "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
         },
         {
-            "url": "/rating",
+            "url": "/ratings",
             "methods": ["GET", "GET_1"]
         },
         {
-            "url": "/route",
+            "url": "/routes",
             "methods": ["GET", "GET_1", "POST", "PUT", "DELETE"]
         },
         {
-            "url": "/trip",
+            "url": "/trips",
             "methods": ["GET", "GET_1"]
         },
         {
-            "url": "/vehicle",
+            "url": "/vehicles",
             "methods": ["GET", "GET_1"]
         }
 

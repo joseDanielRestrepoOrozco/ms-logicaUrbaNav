@@ -9,7 +9,7 @@ export default class BillsController {
      * @returns {Bill} - la factura con su id
      */
     public async store({ request }: HttpContextContract) {
-        let body = JSON.parse(request.body());
+        let body = request.body();
         const theBill = await Bill.create(body);
         return theBill
     }
@@ -52,7 +52,7 @@ export default class BillsController {
      * @returns {Bill} - lo que devuelve la solicitud de guardado de una factura
      */
     public async update({ params, request }: HttpContextContract) {
-        let body = JSON.parse(request.body());
+        let body = request.body()
         const theBill: Bill = await Bill.findOrFail(params.id);
         theBill.price = body.price;
         theBill.date = body.date;

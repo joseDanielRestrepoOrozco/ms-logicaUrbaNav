@@ -3,48 +3,37 @@ import Rating from 'App/Models/Rating';
 
 export default class RatingsController {
 
-    /**
-     * Almacena la informacion de un comentario
-     * @param {HttpContextContract} request - peticion del usuario
-     * @returns {Rating} - la calificacion con su id
-     */
-    public async store({ request }: HttpContextContract) {
-        let body = request.body();
+  /**
+   * Almacena la informacion de un comentario
+   * @param {HttpContextContract} request - peticion del usuario
+   * @returns {Rating} - la calificacion con su id
+   */
+  public async store({ request }: HttpContextContract) {
+    let body = request.body();
+    const theRating = await Rating.create(body);
+    return theRating
+  }
 
-        const theRating = await Rating.create(JSON.parse(body));
-        return theRating
-    }
+  /**
+   * Lista todas las calificaciones con paginadores
+   * @param {HttpContextContract} request - peticion del usuario
+   * @returns {Rating[]} - listado de las calificaciones con paginadores  
+   */
+  public async index({ request }: HttpContextContract) {
+    const page = request.input('page', 1);
+    const perPage = request.input('per_page', 20);
+    let ratings: Rating[] = await Rating.query().paginate(page, perPage);
+    return ratings;
+  }
 
-
-    public async storeList({ request }: HttpContextContract) {
-        let body = JSON.parse(request.body());
-        console.log(body)
-        body.forEach(async rating => {
-           const theRating = await Rating.create(rating);
-        });
-    }
-
-    /**
-     * Lista todas las calificaciones con paginadores
-     * @param {HttpContextContract} request - peticion del usuario
-     * @returns {Rating[]} - listado de las calificaciones con paginadores  
-     */
-    public async index({ request }: HttpContextContract) {
-        const page = request.input('page', 1);
-        const perPage = request.input('per_page', 20);
-        let ratings: Rating[] = await Rating.query().paginate(page, perPage);
-        return ratings;
-    }
-
-
-    /**
-     * Muestra una calificacion dado el id por la url
-     * @param {HttpContextContract} params - peticion del usuario
-     * @returns {Rating} - una calificacion
-     */
-    public async show({ params }: HttpContextContract) {
-        return Rating.findOrFail(params.id);
-    }
+  /**
+   * Muestra una calificacion dado el id por la url
+   * @param {HttpContextContract} params - peticion del usuario
+   * @returns {Rating} - una calificacion
+   */
+  public async show({ params }: HttpContextContract) {
+    return Rating.findOrFail(params.id);
+  }
 
 
     /**
@@ -64,16 +53,16 @@ export default class RatingsController {
     }
 
 
-    /**
-     * elimina una calificacion
-     * @param {HttpContextContract} params - parametros dados por Url
-     * @param {HttpContextContract} response - respuesta para el usuario
-     * @returns {Rating} - lo que devuelve la solicitud de eliminacion
-     */
-    public async destroy({ params, response }: HttpContextContract) {
-        let theRating: Rating = await Rating.findOrFail(params.id);
-        response.status(204)
-        return theRating.delete()
-    }
+  /**
+   * elimina una calificacion
+   * @param {HttpContextContract} params - parametros dados por Url
+   * @param {HttpContextContract} response - respuesta para el usuario
+   * @returns {Rating} - lo que devuelve la solicitud de eliminacion
+   */
+  public async destroy({ params, response }: HttpContextContract) {
+    let theRating: Rating = await Rating.findOrFail(params.id);
+    response.status(204)
+    return theRating.delete()
+  }
 
 }

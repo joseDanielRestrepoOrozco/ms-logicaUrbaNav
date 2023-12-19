@@ -14,15 +14,30 @@ export default class Security {
       method: theRequest.method
     }
     try {
-      // llamo al endpoint que está en el ms-security
+      // llamo al endpoint que está en el MS_SECURITY
       // a esta peticion tengo que ponerle tambien un token porque se debe autenticar (con bearer token)
-      const result = await axios.post(`${Env.get('MS-SECURITY')}/api/public/security/permissions-validation`, data,
+      
+      const result = await axios.post(`${Env.get('MS_SECURITY')}/api/public/security/permissions-validation`, data,
         {
           headers: {
             Authorization: `Bearer ${token}`
           }
         }
       )
+      // el MS_SECURITY me devuelve algo o nada para saber si fue exitosa la autenticación
+      console.log("La respuesta de MS_SECURITY >" + result.data + "<")
+      if (result.data == "") {
+        console.log("no puede ingresar")
+        return response.status(401)
+      } else {
+        console.log(result.data)
+        await next()
+      }
+    } catch (error) {
+      console.error(error)
+      return response.status(401)
+    }
+  
       // el ms-security me devuelve algo o nada para saber si fue exitosa la autenticación
       console.log("La respuesta de ms-security >" + result.data + "<")
       if (result.data == "") {
