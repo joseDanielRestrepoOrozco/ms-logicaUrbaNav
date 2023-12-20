@@ -15,7 +15,7 @@ const databaseConfig: DatabaseConfig = {
   |--------------------------------------------------------------------------
   |
   | The primary connection for making database queries across the application
-  | You can use any key from the `connections` object defined in this same
+  | You can use any key from the connections object defined in this same
   | file.
   |
   */

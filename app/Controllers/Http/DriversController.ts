@@ -249,4 +249,25 @@ export default class DriversController {
             return response.status(504)
         }
     }
+
+        /**
+    * Muestra un conductor dado el id por la url
+    * @param {HttpContextContract} params - peticion del usuario
+    * @returns {Driver} - un conductor
+    */
+    public async showForUser({ request, params }: HttpContextContract) {
+      let token = await this.get_token(request)
+      const page = request.input('page', 1)
+      const perPage = request.input('per_page', 20)
+      let drivers = await Driver.query().paginate(page, perPage)
+      let driver2:any = null
+      drivers.serialize().data.forEach((driver)=>{
+        console.log(String(driver.user_id).trim() === String(params.id).trim(), driver.user_id, params.id)
+        if(String(driver.user_id).trim() === String(params.id).trim()){
+          driver2 = driver
+        }
+      })
+
+      return driver2
+    }
 }

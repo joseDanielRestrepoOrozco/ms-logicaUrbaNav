@@ -7,7 +7,7 @@ export default class Customer extends BaseModel {
   public id: number
 
   @column()
-  public contactEmergency: number
+  public contactEmergency: string
 
   @column()
   public user_id: string

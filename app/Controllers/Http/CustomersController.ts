@@ -252,4 +252,20 @@ export default class CustomersController {
     const theCustomer: Customer = await Customer.query().where("user_id", params.user_id).firstOrFail()
     return theCustomer
   }
+
+  public async showForUser({ request, params }: HttpContextContract) {
+    let token = await this.get_token(request)
+    const page = request.input('page', 1)
+    const perPage = request.input('per_page', 20)
+    let drivers = await Customer.query().paginate(page, perPage)
+    let driver2:any = null
+    drivers.serialize().data.forEach((driver)=>{
+      console.log(String(driver.user_id).trim() === String(params.id).trim(), driver.user_id, params.id)
+      if(String(driver.user_id).trim() === String(params.id).trim()){
+        driver2 = driver
+      }
+    })
+
+    return driver2
+  }
 }
