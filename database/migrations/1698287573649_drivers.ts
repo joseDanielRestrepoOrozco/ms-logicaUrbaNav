@@ -10,8 +10,8 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
 
       table.increments('id')
-      table.boolean('is_available')
-      table.string('user_id')
+      table.boolean('is_available').nullable()
+      table.string('user_id').notNullable()
       /**
        * columnas para las foreing key de vehiculos y puntos
        */

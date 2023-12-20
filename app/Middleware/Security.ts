@@ -38,20 +38,6 @@ export default class Security {
       return response.status(401)
     }
   
-      // el ms-security me devuelve algo o nada para saber si fue exitosa la autenticación
-      console.log("La respuesta de ms-security >" + result.data + "<")
-      if (result.data == "") {
-        console.log("no puede ingresar")
-        return response.status(401)
-      } else {
-        console.log(result.data)
-        await next()
-      }
-    } catch (error) {
-      console.error(error)
-      return response.status(401)
-    }
-  
     } else {
       response.status(401)
     }

@@ -51,20 +51,20 @@ export default class PointsController {
   }
 
 
-    /**
-     * Actualiza un punto
-     * @param {HttpContextContract} params - parametros dados por Url
-     * @param {HttpContextContract} request - peticion del usuario
-     * @returns {Point} - lo que devuelve la solicitud de guardado de un punto
-     */
-    public async update({ params, request }: HttpContextContract) {
-        let body = JSON.parse(request.body());
-        const thePoint: Point = await Point.findOrFail(params.id);
-        thePoint.name = body.name;
-        thePoint.latitude = body.latitude;
-        thePoint.longitude = body.longitude;
-        return thePoint.save()
-    }
+  /**
+   * Actualiza un punto
+   * @param {HttpContextContract} params - parametros dados por Url
+   * @param {HttpContextContract} request - peticion del usuario
+   * @returns {Point} - lo que devuelve la solicitud de guardado de un punto
+   */
+  public async update({ params, request }: HttpContextContract) {
+    const body = request.body();
+    const thePoint: Point = await Point.findOrFail(params.id);
+    thePoint.name = body.name;
+    thePoint.latitude = body.latitude;
+    thePoint.longitude = body.longitude;
+    return thePoint.save()
+  }
 
 
   /**

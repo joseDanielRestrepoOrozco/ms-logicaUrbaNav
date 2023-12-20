@@ -42,23 +42,23 @@ export default class RoutesController {
     
     }
 
-    /**
-     * Obtiene un recurso de tipo 'Route' de la base de datos por su identificador.
-     * @param {HttpContextContract} params - El objeto de parámetros de ruta proporcionado por AdonisJS, que generalmente contiene el identificador del recurso a buscar.
-     * @returns {Promise<Route>} Una promesa que resuelve con el recurso de tipo 'Route' encontrado.
-     * @throws ModelNotFoundException si el recurso no se encuentra en la base de datos.
-     */
-    public async show({ params }: HttpContextContract) {
-        let theRoute: Route = await Route.query().where('id', params.id).firstOrFail();
-        const points = await theRoute.related('points').query();
-        const pointsroute = points.map((point) => {
-            return {
-                "index": point.$extras.pivot_index,
-                "point": point.toJSON()
-            }
-        })
-        return { ...theRoute.toJSON(), "pointsroute": pointsroute };
-    }
+  /**
+   * Obtiene un recurso de tipo 'Route' de la base de datos por su identificador.
+   * @param {HttpContextContract} params - El objeto de parámetros de ruta proporcionado por AdonisJS, que generalmente contiene el identificador del recurso a buscar.
+   * @returns {Promise<Route>} Una promesa que resuelve con el recurso de tipo 'Route' encontrado.
+   * @throws ModelNotFoundException si el recurso no se encuentra en la base de datos.
+   */
+  public async show({ params }: HttpContextContract) {
+    let theRoute: Route = await Route.query().where('id', params.id).firstOrFail();
+    const points = await theRoute.related('points').query();
+    const pointsroute = points.map((point) => {
+      return {
+        "index": point.$extras.pivot_index,
+        "point": point.toJSON()
+      }
+    })
+    return { ...theRoute.toJSON(), "pointsroute": pointsroute };
+  }
 
 
   /**
@@ -72,8 +72,6 @@ export default class RoutesController {
     const body = request.body()
     const theRoute: Route = await Route.findOrFail(params.id)
     theRoute.name = body.name
-    // theRoute.origin = body.origin
-    // theRoute.destination = body.destination
     return theRoute.save()
 
   }

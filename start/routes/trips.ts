@@ -11,4 +11,9 @@ Route.group(() => {
     Route.delete("/trips/:id","TripsController.destroy");
     Route.post("/trips/list","TripsController.storeList");
     Route.post("/trips/user/:id","TripsController.CreateOnlyDriver");
+    
+    Route.get("/trips/:customer_id","TripsController.indexByCustomer");
+    
+    Route.get("/trips/:driver_id","TripsController.indexByDriver");
+    
 })//.middleware(['security'])
