@@ -248,4 +248,9 @@ export default class DriversController {
       return response.status(504)
     }
   }
+
+  public async findByUserId({ params }: HttpContextContract){
+    const theDriver: Driver = await Driver.query().where("user_id", params.user_id).firstOrFail()
+    return theDriver
+  }
 }

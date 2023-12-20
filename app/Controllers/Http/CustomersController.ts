@@ -246,4 +246,9 @@ export default class CustomersController {
       return response.status(504)
     }
   }
+
+  public async findByUserId({ params }: HttpContextContract){
+    const theCustomer: Customer = await Customer.query().where("user_id", params.user_id).firstOrFail()
+    return theCustomer
+  }
 }

@@ -10,5 +10,5 @@ Route.group(() => {
     Route.post("/customers/list","CustomersController.storeList");
     Route.get("/customers/:id","CustomersController.show");
     Route.put("/customers/:id","CustomersController.update");
-    Route.delete("/customers/:id","CustomersController.destroy");
+    Route.get("/customers/user/:user_id","CustomersController.findByUserId");
 })//.middleware(['security'])
