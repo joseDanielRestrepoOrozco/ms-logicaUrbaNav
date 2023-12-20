@@ -13,14 +13,7 @@ export default class DriversController {
     }
     return token
   }
-  public async get_token(request) {
-    let theRequest = request.toJSON()
-    let token: string = ''
-    if (theRequest.headers.authorization) {
-      token = theRequest.headers.authorization.replace("Bearer ", "")
-    }
-    return token
-  }
+  
 
   /**
  * Almacena la informacion de un usuario
@@ -181,50 +174,24 @@ export default class DriversController {
     return { ...theDriver.toJSON(), "trips": trips }
   }
 
-
-
-
-  /**
-  * Muestra un conductor dado el id por la url
-  * @param {HttpContextContract} params - peticion del usuario
-  * @returns {Driver} - un conductor
-  */
-  public async showForUser({ request, params }: HttpContextContract) {
-    let token = await this.get_token(request)
-    const page = request.input('page', 1)
-    const perPage = request.input('per_page', 20)
-    let drivers = await Driver.query().paginate(page, perPage)
-    let driver2:any = null
-    drivers.serialize().data.forEach((driver)=>{
-      console.log(String(driver.user_id).trim() === String(params.id).trim(), driver.user_id, params.id)
-      if(String(driver.user_id).trim() === String(params.id).trim()){
-        driver2 = driver
-      }
-    })
-
-    return driver2
-  }
-
-  
-
-  /**
-  * Actualiza un conductor
-  * @param {HttpContextContract} params - parametros dados por Url
-  * @param {HttpContextContract} request - peticion del usuario
-  * @returns {Driver} - lo que devuelve la solicitud de guardado
-  */
-  public async update({ params, request }: HttpContextContract) {
-    let token = await this.get_token(request)
-    const body = request.body()
-    const theDriver: Driver = await Driver.findOrFail(params.id)
-    theDriver.is_available = body.is_available
-    let user = (await axios.put(`${Env.get('MS_SECURITY')}/private/users/${theDriver.user_id}`, body, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })).data
-    let driver = await theDriver.save()
-    return { ...driver.toJSON(), user };
+    /**
+    * Actualiza un conductor
+    * @param {HttpContextContract} params - parametros dados por Url
+    * @param {HttpContextContract} request - peticion del usuario
+    * @returns {Driver} - lo que devuelve la solicitud de guardado
+    */
+    public async update({ params, request }: HttpContextContract) {
+        let token = await this.get_token(request)
+        const body = request.body()
+        const theDriver: Driver = await Driver.findOrFail(params.id)
+        theDriver.is_available = body.isAvailable
+        let user = (await axios.put(`${Env.get('MS-SECURITY')}/private/users/${theDriver.user_id}`, body,{
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })).data
+        let driver = await theDriver.save()
+        return { ...driver.toJSON(), user };
 
   }
 
@@ -250,71 +217,36 @@ export default class DriversController {
             Authorization: `Bearer ${token}`
           }
         })
-  /**
-  * elimina un conductor
-  * @param {HttpContextContract} params - parametros dados por Url
-  * @param {HttpContextContract} response - respuesta para el usuario
-  * @returns {Driver} - lo que devuelve la solicitud de eliminacion
-  */
-  public async destroy({ params, response, request }: HttpContextContract) {
-    try {
-      let token = await this.get_token(request)
-      let theDriver: Driver = await Driver.findOrFail(params.id)
-      let theDriverSerialze = theDriver.serialize()
-      let payment: Object[] = (await axios.get(`${Env.get('MS_SECURITY')}/private/paymentmethod/user/${theDriverSerialze.user_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })).data
-      payment.forEach(async pay => {
-        await axios.delete(`${Env.get('MS_SECURITY')}/private/paymentmethod/${pay["_id"]}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
 
       })
-      })
 
 
-      let pqrs: Object[] = (await axios.get(`${Env.get('MS_SECURITY')}/private/pqrs/user/${theDriverSerialze.user_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
+            let pqrs: Object[] = (await axios.get(`${Env.get('MS-SECURITY')}/private/pqrs/user/${theDriverSerialze.user_id}`,{
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              })).data
+            pqrs.forEach(async pqr => {
+                await axios.delete(`${Env.get('MS-SECURITY')}/private/pqrs/${pqr["_id"]}`,{
+                    headers: {
+                      Authorization: `Bearer ${token}`
+                    }
+                  })
+            });
+
+            console.log(pqrs, theDriver.user_id)
+            await axios.delete(`${Env.get('MS-SECURITY')}/private/users/${theDriverSerialze.user_id}`,{
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              })
+
+            await theDriver.delete()
+            response.status(204)
+            return response
+        } catch (error) {
+            console.log(error)
+            return response.status(504)
         }
-      })).data
-      pqrs.forEach(async pqr => {
-        await axios.delete(`${Env.get('MS_SECURITY')}/private/pqrs/${pqr["_id"]}`)
-      });
-      let pqrs: Object[] = (await axios.get(`${Env.get('MS_SECURITY')}/private/pqrs/user/${theDriverSerialze.user_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })).data
-      pqrs.forEach(async pqr => {
-        await axios.delete(`${Env.get('MS_SECURITY')}/private/pqrs/${pqr["_id"]}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-      });
-
-      console.log(pqrs, theDriver.user_id)
-      await axios.delete(`${Env.get('MS_SECURITY')}/private/users/${theDriverSerialze.user_id}`)
-
-      console.log("pase por aca")
-      console.log(pqrs, theDriver.user_id)
-      await axios.delete(`${Env.get('MS_SECURITY')}/private/users/${theDriverSerialze.user_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-
-      await theDriver.delete()
-      response.status(204)
-      return response
-    } catch (error) {
-      console.log(error)
-      return response.status(504)
     }
-  }
 }
