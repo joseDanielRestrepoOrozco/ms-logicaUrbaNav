@@ -268,4 +268,22 @@ export default class CustomersController {
 
     return driver2
   }
+
+  public async findByUserById({ params }: HttpContextContract) {
+    // params.user_id será el ID del usuario que buscas
+    const user_id = params.user_id;
+
+    // Buscar el cliente con ese user_id
+    const customer = await Customer.query().where('user_id', user_id).first();
+
+    // Si no se encuentra el cliente, puedes devolver un error o un mensaje
+    if (!customer) {
+        return { message: 'Cliente no encontrado' };
+    }
+
+    // Devuelve el cliente encontrado
+    return customer;
+}
+
+  
 }
